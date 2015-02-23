@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>073C8FE2-3281-433B-A818-A4516FCA7074</string>
+	<key>IDESourceControlProjectName</key>
+	<string>kiloton</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>80661C2CC449148221B0E212C8A98B7575B7AB56</key>
+		<string>https://github.com/ariellyrycs/kiloton.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>kiloton.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>80661C2CC449148221B0E212C8A98B7575B7AB56</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ariellyrycs/kiloton.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>80661C2CC449148221B0E212C8A98B7575B7AB56</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>80661C2CC449148221B0E212C8A98B7575B7AB56</string>
+			<key>IDESourceControlWCCName</key>
+			<string>kiloton</string>
+		</dict>
+	</array>
+</dict>
+</plist>
