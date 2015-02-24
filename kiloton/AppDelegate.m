@@ -7,16 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "UserProfileViewController.h"
+#import "LoginViewController.h"
+#import "UserModel.h"
 
 @interface AppDelegate ()
 
 @end
 
+static NSString * userModelName = @"UserModel";
+
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [FBProfilePictureView  class];
     // Override point for customization after application launch.
+    if ([self checkSessionExpiration]) {
+        UserProfileViewController *profileViewController = [[UIStoryboard storyboardWithName:@"UserProfile" bundle:nil] instantiateViewControllerWithIdentifier:@"profileViewController"];
+        self.window.rootViewController = profileViewController;
+    }
     return YES;
 }
 
@@ -44,6 +55,10 @@
     [self saveContext];
 }
 
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+}
+
 #pragma mark - Core Data stack
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -60,7 +75,7 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"kiloton" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Kiloton" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
@@ -74,7 +89,7 @@
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"kiloton.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Kiloton.sqlite"];
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
@@ -121,6 +136,23 @@
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+    }
+}
+
+- (BOOL) checkSessionExpiration {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if(!error && fetchedObjects.count != 0 ) {
+        UserModel *managedObject = [fetchedObjects objectAtIndex:0];
+        LoginViewController *objectOfYourCustomClass = [LoginViewController new];
+        return [[NSString stringWithFormat:@"%@", [objectOfYourCustomClass getToken]] isEqualToString: [NSString stringWithFormat:@"%@", managedObject.accessToken]];
+    } else {
+        NSLog(@"there isn't information to show");
+        return NO;
     }
 }
 
