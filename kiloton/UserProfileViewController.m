@@ -22,13 +22,15 @@ static NSString * userModelName = @"UserModel";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.scroller setScrollEnabled:YES];
-    [self.scroller setContentSize:CGSizeMake(320, 640)];
-    
     self.userImage.layer.cornerRadius  = 50;
     self.userImage.layer.borderColor = [UIColor grayColor].CGColor;
     self.userImage.layer.masksToBounds = YES;
     [self showInfo];
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.currentWeight resignFirstResponder];
+    [self.weightToLose resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
