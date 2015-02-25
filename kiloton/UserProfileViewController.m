@@ -25,6 +25,7 @@ static NSString * userModelName = @"UserModel";
     self.userImage.layer.cornerRadius  = 50;
     self.userImage.layer.borderColor = [UIColor grayColor].CGColor;
     self.userImage.layer.masksToBounds = YES;
+    self.finalDate.minimumDate = [NSDate date];
     [self showInfo];
 }
 
