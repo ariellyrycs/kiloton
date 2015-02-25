@@ -21,7 +21,10 @@ static NSString * userModelName = @"UserModel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.scroller setScrollEnabled:YES];
+    [self.scroller setContentSize:CGSizeMake(320, 640)];
+    
     self.userImage.layer.cornerRadius  = 50;
     self.userImage.layer.borderColor = [UIColor grayColor].CGColor;
     self.userImage.layer.masksToBounds = YES;
@@ -102,9 +105,9 @@ static NSString * userModelName = @"UserModel";
 }
 
 - (IBAction)sendWeight:(id)sender {
-    [self.weight.text intValue];
+    [self.currentWeight.text intValue];
     
-    if(![self.weight.text isEqualToString:@""]) {
+    if(![self.currentWeight.text isEqualToString:@""]) {
         NSLog(@"2");
     } else {
         [self showMessageAlert:@"" title:@"It couldn't save"];
