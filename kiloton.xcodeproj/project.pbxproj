@@ -7,9 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A662EEF01A9E600F00755425 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEEF1A9E600F00755425 /* StatusViewController.m */; };
+		A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF21A9E75E000755425 /* CreateStatusViewController.m */; };
+		A662EEF61A9E8F7700755425 /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF51A9E8F7700755425 /* InteractionsModel.m */; };
+		A662EEFA1A9E97EA00755425 /* HistoryCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF81A9E97EA00755425 /* HistoryCellTableViewCell.m */; };
+		A662EEFB1A9E97EA00755425 /* HistoryCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A662EEF91A9E97EA00755425 /* HistoryCellTableViewCell.xib */; };
+		A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EF001A9EA05D00755425 /* HistoryTableViewController.m */; };
+		A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EF091A9EA9EA00755425 /* UIView+RoundersCorners.m */; };
+		A66853D31A9E3EDA00463E06 /* KilotonModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A66853D11A9E3EDA00463E06 /* KilotonModel.xcdatamodeld */; };
+		A66853D61A9E496E00463E06 /* SprintModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A66853D51A9E496E00463E06 /* SprintModel.m */; };
+		A66853DC1A9E4C4600463E06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A66853DB1A9E4C4600463E06 /* Main.storyboard */; };
 		A68CDA5E1A9B927E00724D12 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA5D1A9B927E00724D12 /* main.m */; };
 		A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA601A9B927E00724D12 /* AppDelegate.m */; };
-		A68CDA641A9B927E00724D12 /* Kiloton.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA621A9B927E00724D12 /* Kiloton.xcdatamodeld */; };
 		A68CDA671A9B927E00724D12 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA661A9B927E00724D12 /* LoginViewController.m */; };
 		A68CDA6A1A9B927E00724D12 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA681A9B927E00724D12 /* Login.storyboard */; };
 		A68CDA6C1A9B927E00724D12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA6B1A9B927E00724D12 /* Images.xcassets */; };
@@ -33,12 +42,28 @@
 
 /* Begin PBXFileReference section */
 		41F698D9A20EEA210F43286C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		A662EEEE1A9E600F00755425 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
+		A662EEEF1A9E600F00755425 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
+		A662EEF11A9E75E000755425 /* CreateStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStatusViewController.h; sourceTree = "<group>"; };
+		A662EEF21A9E75E000755425 /* CreateStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateStatusViewController.m; sourceTree = "<group>"; };
+		A662EEF41A9E8F7700755425 /* InteractionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionsModel.h; sourceTree = "<group>"; };
+		A662EEF51A9E8F7700755425 /* InteractionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionsModel.m; sourceTree = "<group>"; };
+		A662EEF71A9E97EA00755425 /* HistoryCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCellTableViewCell.h; sourceTree = "<group>"; };
+		A662EEF81A9E97EA00755425 /* HistoryCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCellTableViewCell.m; sourceTree = "<group>"; };
+		A662EEF91A9E97EA00755425 /* HistoryCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCellTableViewCell.xib; sourceTree = "<group>"; };
+		A662EEFF1A9EA05D00755425 /* HistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		A662EF001A9EA05D00755425 /* HistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
+		A662EF081A9EA9EA00755425 /* UIView+RoundersCorners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+RoundersCorners.h"; sourceTree = "<group>"; };
+		A662EF091A9EA9EA00755425 /* UIView+RoundersCorners.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+RoundersCorners.m"; sourceTree = "<group>"; };
+		A66853D21A9E3EDA00463E06 /* KilotonModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = KilotonModel.xcdatamodel; sourceTree = "<group>"; };
+		A66853D41A9E496E00463E06 /* SprintModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintModel.h; sourceTree = "<group>"; };
+		A66853D51A9E496E00463E06 /* SprintModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprintModel.m; sourceTree = "<group>"; };
+		A66853DB1A9E4C4600463E06 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A68CDA581A9B927E00724D12 /* kiloton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kiloton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68CDA5C1A9B927E00724D12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68CDA5D1A9B927E00724D12 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A68CDA5F1A9B927E00724D12 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A68CDA601A9B927E00724D12 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A68CDA631A9B927E00724D12 /* Kiloton.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Kiloton.xcdatamodel; sourceTree = "<group>"; };
 		A68CDA651A9B927E00724D12 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		A68CDA661A9B927E00724D12 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		A68CDA691A9B927E00724D12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
@@ -83,6 +108,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A66853D71A9E4B6A00463E06 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A66853D11A9E3EDA00463E06 /* KilotonModel.xcdatamodeld */,
+				A662EEF41A9E8F7700755425 /* InteractionsModel.h */,
+				A662EEF51A9E8F7700755425 /* InteractionsModel.m */,
+				A68EB0C31A9CEB8000130C45 /* UserModel.h */,
+				A68EB0C41A9CEB8000130C45 /* UserModel.m */,
+				A66853D41A9E496E00463E06 /* SprintModel.h */,
+				A66853D51A9E496E00463E06 /* SprintModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A66853D81A9E4BB700463E06 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A68EB0B71A9BA06D00130C45 /* UserProfileViewController.h */,
+				A68EB0B81A9BA06D00130C45 /* UserProfileViewController.m */,
+				A68CDA651A9B927E00724D12 /* LoginViewController.h */,
+				A68CDA661A9B927E00724D12 /* LoginViewController.m */,
+				A662EEEE1A9E600F00755425 /* StatusViewController.h */,
+				A662EEEF1A9E600F00755425 /* StatusViewController.m */,
+				A662EEF11A9E75E000755425 /* CreateStatusViewController.h */,
+				A662EEF21A9E75E000755425 /* CreateStatusViewController.m */,
+				A662EEF71A9E97EA00755425 /* HistoryCellTableViewCell.h */,
+				A662EEF81A9E97EA00755425 /* HistoryCellTableViewCell.m */,
+				A662EEFF1A9EA05D00755425 /* HistoryTableViewController.h */,
+				A662EF001A9EA05D00755425 /* HistoryTableViewController.m */,
+				A662EF081A9EA9EA00755425 /* UIView+RoundersCorners.h */,
+				A662EF091A9EA9EA00755425 /* UIView+RoundersCorners.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A66853DA1A9E4BDE00463E06 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A68CDA681A9B927E00724D12 /* Login.storyboard */,
+				A68CDA6D1A9B927E00724D12 /* LaunchScreen.xib */,
+				A68EB0BA1A9BA13300130C45 /* UserProfile.storyboard */,
+				A662EEF91A9E97EA00755425 /* HistoryCellTableViewCell.xib */,
+				A66853DB1A9E4C4600463E06 /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		A68CDA4F1A9B927E00724D12 = {
 			isa = PBXGroup;
 			children = (
@@ -106,20 +178,13 @@
 		A68CDA5A1A9B927E00724D12 /* kiloton */ = {
 			isa = PBXGroup;
 			children = (
+				A66853DA1A9E4BDE00463E06 /* Views */,
+				A66853D81A9E4BB700463E06 /* Controllers */,
+				A66853D71A9E4B6A00463E06 /* Models */,
 				A68CDA5F1A9B927E00724D12 /* AppDelegate.h */,
 				A68CDA601A9B927E00724D12 /* AppDelegate.m */,
-				A68CDA651A9B927E00724D12 /* LoginViewController.h */,
-				A68CDA661A9B927E00724D12 /* LoginViewController.m */,
-				A68CDA681A9B927E00724D12 /* Login.storyboard */,
 				A68CDA6B1A9B927E00724D12 /* Images.xcassets */,
-				A68CDA6D1A9B927E00724D12 /* LaunchScreen.xib */,
-				A68CDA621A9B927E00724D12 /* Kiloton.xcdatamodeld */,
-				A68EB0C31A9CEB8000130C45 /* UserModel.h */,
-				A68EB0C41A9CEB8000130C45 /* UserModel.m */,
 				A68CDA5B1A9B927E00724D12 /* Supporting Files */,
-				A68EB0B71A9BA06D00130C45 /* UserProfileViewController.h */,
-				A68EB0B81A9BA06D00130C45 /* UserProfileViewController.m */,
-				A68EB0BA1A9BA13300130C45 /* UserProfile.storyboard */,
 			);
 			path = kiloton;
 			sourceTree = "<group>";
@@ -242,8 +307,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A68CDA6A1A9B927E00724D12 /* Login.storyboard in Resources */,
+				A66853DC1A9E4C4600463E06 /* Main.storyboard in Resources */,
 				A68EB0BB1A9BA13300130C45 /* UserProfile.storyboard in Resources */,
 				A68CDA6F1A9B927E00724D12 /* LaunchScreen.xib in Resources */,
+				A662EEFB1A9E97EA00755425 /* HistoryCellTableViewCell.xib in Resources */,
 				A68CDA6C1A9B927E00724D12 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,12 +362,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */,
 				A68EB0B91A9BA06D00130C45 /* UserProfileViewController.m in Sources */,
-				A68CDA641A9B927E00724D12 /* Kiloton.xcdatamodeld in Sources */,
+				A66853D61A9E496E00463E06 /* SprintModel.m in Sources */,
 				A68EB0C51A9CEB8000130C45 /* UserModel.m in Sources */,
+				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
 				A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */,
+				A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */,
+				A662EEF01A9E600F00755425 /* StatusViewController.m in Sources */,
+				A662EEF61A9E8F7700755425 /* InteractionsModel.m in Sources */,
+				A66853D31A9E3EDA00463E06 /* KilotonModel.xcdatamodeld in Sources */,
 				A68CDA671A9B927E00724D12 /* LoginViewController.m in Sources */,
 				A68CDA5E1A9B927E00724D12 /* main.m in Sources */,
+				A662EEFA1A9E97EA00755425 /* HistoryCellTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +498,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = kiloton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -435,6 +510,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = kiloton/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -507,13 +583,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A68CDA621A9B927E00724D12 /* Kiloton.xcdatamodeld */ = {
+		A66853D11A9E3EDA00463E06 /* KilotonModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				A68CDA631A9B927E00724D12 /* Kiloton.xcdatamodel */,
+				A66853D21A9E3EDA00463E06 /* KilotonModel.xcdatamodel */,
 			);
-			currentVersion = A68CDA631A9B927E00724D12 /* Kiloton.xcdatamodel */;
-			path = Kiloton.xcdatamodeld;
+			currentVersion = A66853D21A9E3EDA00463E06 /* KilotonModel.xcdatamodel */;
+			path = KilotonModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

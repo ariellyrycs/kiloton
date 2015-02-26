@@ -8,11 +8,14 @@
 
 #import "UserProfileViewController.h"
 #import "UserModel.h"
+#import "SprintModel.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "UIView+RoundersCorners.h"
 
 static NSString * userModelName = @"UserModel";
+static NSString * sprintModelName = @"SprintModel";
 
 @interface UserProfileViewController ()
 @end
@@ -21,10 +24,7 @@ static NSString * userModelName = @"UserModel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.userImage.layer.cornerRadius  = 50;
-    self.userImage.layer.borderColor = [UIColor grayColor].CGColor;
-    self.userImage.layer.masksToBounds = YES;
+    [self.userImage makeRounderCorners];
     self.finalDate.minimumDate = [NSDate date];
     [self showInfo];
 }
@@ -80,10 +80,10 @@ static NSString * userModelName = @"UserModel";
     }
 }
 
-- (void)changeToMainStoryboard {
+- (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier{
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginViewController"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    LoginViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier: identifier];
     [UIView animateWithDuration:0.5 animations:^{
         [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:appDelegate.window cache:NO];
         appDelegate.window.rootViewController = profileViewController;
@@ -104,16 +104,29 @@ static NSString * userModelName = @"UserModel";
     NSLog(@"You're logged out");
     [self deleteCurrentUserInfo];
     [FBSession.activeSession closeAndClearTokenInformation];
-    [self changeToMainStoryboard];
+    [self changeStoryboard:@"Login" identifier: @"loginViewController"];
 }
 
 - (IBAction)sendWeight:(id)sender {
-    [self.currentWeight.text intValue];
-    
-    if(![self.currentWeight.text isEqualToString:@""]) {
-        NSLog(@"2");
+    if([self.currentWeight.text intValue] && [self.weightToLose.text intValue]) {
+        [self saveSprintData];
     } else {
         [self showMessageAlert:@"" title:@"It couldn't save"];
+    }
+}
+
+- (void) saveSprintData {
+    NSManagedObjectContext *context = [self managedObjectContext];
+    SprintModel *newSprint = [NSEntityDescription insertNewObjectForEntityForName:sprintModelName inManagedObjectContext:context];
+    newSprint.currentDate = [NSDate date];
+    newSprint.lastDate = [self.finalDate date];
+    newSprint.currentWeight = self.currentWeight.text;
+    newSprint.weightObjective = self.weightToLose.text;
+    NSError *error;
+    if(![self.managedObjectContext save:&error]) {
+        NSLog(@"Error %@",error);
+    } else {
+        [self changeStoryboard:@"Main" identifier: @"logedInTabBar"];
     }
 }
 

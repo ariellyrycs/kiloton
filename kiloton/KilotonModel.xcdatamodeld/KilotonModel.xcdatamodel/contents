@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="InteractionsModel" representedClassName="InteractionsModel" syncable="YES">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="registrationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SprintModel" representedClassName="SprintModel" syncable="YES">
+        <attribute name="currentDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="currentWeight" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="weightObjective" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserModel" syncable="YES">
+        <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idProfile" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="SprintModel" positionX="-45" positionY="27" width="128" height="105"/>
+        <element name="UserModel" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="InteractionsModel" positionX="-54" positionY="36" width="128" height="105"/>
+    </elements>
+</model>
