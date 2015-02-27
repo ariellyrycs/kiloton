@@ -53,12 +53,28 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 
+-(NSString *) getMonthName:(NSDate *) date {
+    NSDateFormatter *calMonth = [NSDateFormatter new];
+    [calMonth setDateFormat:@"MMMM"];
+    return [calMonth stringFromDate:date];
+}
+
+-(NSString *) getDay:(NSDate *) date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+    NSDateComponents *components = [calendar components:units fromDate:date];
+    NSInteger day = [components day];
+    return [NSString stringWithFormat:@"%li", (long)day];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HistoryCellTableViewCell* cell = (HistoryCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier: cellIdentifier];
     if (cell == nil) {
         cell = [[HistoryCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
+    cell.month.text = [self getMonthName:state.date];
+    cell.day.text = [self getDay:state.date];
     return cell;
 }
 
