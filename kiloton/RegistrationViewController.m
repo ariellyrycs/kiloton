@@ -29,6 +29,7 @@ static NSString * sprintModelName = @"SprintModel";
     [self.userImage makeRounderCorners];
     self.finalDate.minimumDate = [NSDate date];
     [self showInfo];
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
