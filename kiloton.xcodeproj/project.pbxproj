@@ -24,8 +24,6 @@
 		A68CDA6C1A9B927E00724D12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA6B1A9B927E00724D12 /* Images.xcassets */; };
 		A68CDA6F1A9B927E00724D12 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA6D1A9B927E00724D12 /* LaunchScreen.xib */; };
 		A68CDA7B1A9B927E00724D12 /* kilotonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA7A1A9B927E00724D12 /* kilotonTests.m */; };
-		A68EB0B91A9BA06D00130C45 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A68EB0B81A9BA06D00130C45 /* UserProfileViewController.m */; };
-		A68EB0BB1A9BA13300130C45 /* UserProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A68EB0BA1A9BA13300130C45 /* UserProfile.storyboard */; };
 		A68EB0C51A9CEB8000130C45 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A68EB0C41A9CEB8000130C45 /* UserModel.m */; };
 		E087A30A4C87ABC514C59518 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D133CF11182A05AE0F5B55BB /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -72,9 +70,6 @@
 		A68CDA741A9B927E00724D12 /* kilotonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kilotonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68CDA791A9B927E00724D12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68CDA7A1A9B927E00724D12 /* kilotonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kilotonTests.m; sourceTree = "<group>"; };
-		A68EB0B71A9BA06D00130C45 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
-		A68EB0B81A9BA06D00130C45 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
-		A68EB0BA1A9BA13300130C45 /* UserProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserProfile.storyboard; sourceTree = "<group>"; };
 		A68EB0C31A9CEB8000130C45 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		A68EB0C41A9CEB8000130C45 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		D133CF11182A05AE0F5B55BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,8 +120,6 @@
 		A66853D81A9E4BB700463E06 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A68EB0B71A9BA06D00130C45 /* UserProfileViewController.h */,
-				A68EB0B81A9BA06D00130C45 /* UserProfileViewController.m */,
 				A68CDA651A9B927E00724D12 /* LoginViewController.h */,
 				A68CDA661A9B927E00724D12 /* LoginViewController.m */,
 				A662EEEE1A9E600F00755425 /* StatusViewController.h */,
@@ -148,7 +141,6 @@
 			children = (
 				A68CDA681A9B927E00724D12 /* Login.storyboard */,
 				A68CDA6D1A9B927E00724D12 /* LaunchScreen.xib */,
-				A68EB0BA1A9BA13300130C45 /* UserProfile.storyboard */,
 				A662EEF91A9E97EA00755425 /* HistoryCellTableViewCell.xib */,
 				A66853DB1A9E4C4600463E06 /* Main.storyboard */,
 			);
@@ -308,7 +300,6 @@
 			files = (
 				A68CDA6A1A9B927E00724D12 /* Login.storyboard in Resources */,
 				A66853DC1A9E4C4600463E06 /* Main.storyboard in Resources */,
-				A68EB0BB1A9BA13300130C45 /* UserProfile.storyboard in Resources */,
 				A68CDA6F1A9B927E00724D12 /* LaunchScreen.xib in Resources */,
 				A662EEFB1A9E97EA00755425 /* HistoryCellTableViewCell.xib in Resources */,
 				A68CDA6C1A9B927E00724D12 /* Images.xcassets in Resources */,
@@ -363,7 +354,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */,
-				A68EB0B91A9BA06D00130C45 /* UserProfileViewController.m in Sources */,
 				A66853D61A9E496E00463E06 /* SprintModel.m in Sources */,
 				A68EB0C51A9CEB8000130C45 /* UserModel.m in Sources */,
 				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
@@ -498,7 +488,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = kiloton/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -510,7 +499,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = kiloton/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

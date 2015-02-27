@@ -7,18 +7,20 @@
 //
 
 #import "LoginViewController.h"
-#import "UserProfileViewController.h"
+#import "RegistrationViewController.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "UIView+RoundersCorners.h"
+
 
 @interface LoginViewController () <FBLoginViewDelegate>
-- (NSManagedObjectContext *) managedObjectContext;
+
 - (void)getInfo;
-- (void)changeToUserProfileStoryboard;
 @end
 
-static NSString *userModelName = @"UserModel";
+static NSString * userModelName = @"UserModel";
+static NSString * sprintModelName = @"SprintModel";
 
 @implementation LoginViewController
 
@@ -61,23 +63,12 @@ static NSString *userModelName = @"UserModel";
             if(![[self managedObjectContext] save:&error]) {
                 NSLog(@"Error %@",error);
             }
-            [self performSelector:@selector(changeToUserProfileStoryboard) withObject:nil afterDelay:.0];
+            [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
         }
-    }];
-}
-
-- (void)changeToUserProfileStoryboard {
-    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
-    UserProfileViewController *profileViewController = [self.profileStoryboard instantiateViewControllerWithIdentifier:@"profileViewController"];
-    [UIView animateWithDuration:0.5 animations:^{
-        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:appDelegate.window cache:NO];
-        appDelegate.window.rootViewController = profileViewController;
     }];
 }
 
 - (NSString*) getToken {
     return FBSession.activeSession.accessTokenData.accessToken;
 }
-
-
 @end

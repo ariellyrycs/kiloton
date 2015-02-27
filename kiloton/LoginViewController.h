@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LoginViewController : UIViewController
 @property UIStoryboard *profileStoryboard;
+- (NSManagedObjectContext *) managedObjectContext;
 - (IBAction)SignInWithFaceBook:(id)sender;
 - (NSString*) getToken;
 @end
-

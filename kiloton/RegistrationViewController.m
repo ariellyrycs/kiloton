@@ -1,12 +1,12 @@
 //
-//  UserProfileViewController.m
+//  RegistrationViewController.m
 //  kiloton
 //
-//  Created by Ariel Robles on 2/23/15.
+//  Created by Ariel Robles on 2/26/15.
 //  Copyright (c) 2015 nearsoft. All rights reserved.
 //
 
-#import "UserProfileViewController.h"
+#import "RegistrationViewController.h"
 #import "UserModel.h"
 #import "SprintModel.h"
 #import "AppDelegate.h"
@@ -14,13 +14,15 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 
+@interface RegistrationViewController ()
+
+@end
+
 static NSString * userModelName = @"UserModel";
 static NSString * sprintModelName = @"SprintModel";
 
-@interface UserProfileViewController ()
-@end
+@implementation RegistrationViewController
 
-@implementation UserProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,14 +93,13 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)signOut:(id)sender {
     NSLog(@"You're logged out");
@@ -140,3 +141,7 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 @end
+
+
+
+
