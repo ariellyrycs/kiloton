@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet FBProfilePictureView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *currentWeight;
 @property (weak, nonatomic) IBOutlet UILabel *weightLost;
-
+- (IBAction)signOut:(id)sender;
+- (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier;
 @end

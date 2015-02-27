@@ -69,12 +69,6 @@ static NSString * sprintModelName = @"SprintModel";
     self.userImage.profileID = managedObject.idProfile;
 }
 
-- (void) deleteCurrentUserInfo {
-    NSManagedObject *managedObject = self.getCurrentUser;
-    [[self managedObjectContext] deleteObject:managedObject];
-    [self saveContext];
-}
-
 - (void)saveContext{
     NSError *error;
     if(![[self managedObjectContext] save:&error]) {
@@ -100,13 +94,6 @@ static NSString * sprintModelName = @"SprintModel";
  // Pass the selected object to the new view controller.
  }
  */
-
-- (IBAction)signOut:(id)sender {
-    NSLog(@"You're logged out");
-    [self deleteCurrentUserInfo];
-    [FBSession.activeSession closeAndClearTokenInformation];
-    [self changeStoryboard:@"Login" identifier: @"loginViewController"];
-}
 
 - (IBAction)sendWeight:(id)sender {
     if([self.currentWeight.text intValue] && [self.weightToLose.text intValue]) {
