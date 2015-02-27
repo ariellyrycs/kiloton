@@ -169,7 +169,7 @@
             </objects>
             <point key="canvasLocation" x="997" y="547"/>
         </scene>
-        <!--Check My Stats-->
+        <!--status-->
         <scene sceneID="zI4-8m-zbv">
             <objects>
                 <viewController id="6jp-ZT-tv7" customClass="StatusViewController" sceneMemberID="viewController">
@@ -197,18 +197,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fx0-y5-eJE">
-                                <rect key="frame" x="0.0" y="19" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Status" id="Fkk-Wl-VQb">
-                                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="URa-MN-bHR"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Check My Stats" id="tK1-1K-i6m"/>
+                    <navigationItem key="navigationItem" title="status" id="szB-7q-TTz">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="4Vl-U3-3XZ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="currentWeight" destination="K0V-qn-QB8" id="Y17-yF-hZI"/>
                         <outlet property="userImage" destination="feu-Lo-L9C" id="6OO-Hc-Zx0"/>
@@ -217,7 +211,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oqn-zX-Sl8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="213" y="-82"/>
+            <point key="canvasLocation" x="745" y="-82"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="qYH-cl-SeX">
@@ -231,12 +225,31 @@
                     </tabBar>
                     <connections>
                         <segue destination="Rep-WZ-Pbk" kind="relationship" relationship="viewControllers" id="h2I-uR-pMC"/>
-                        <segue destination="6jp-ZT-tv7" kind="relationship" relationship="viewControllers" id="rdo-8b-3DX"/>
+                        <segue destination="yn4-P6-BMu" kind="relationship" relationship="viewControllers" id="rdo-8b-3DX"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OnO-Cu-tlD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-199.46666666666667" y="214.89333333333335"/>
+        </scene>
+        <!--Check My Stats-->
+        <scene sceneID="t1z-OV-zgn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yn4-P6-BMu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Check My Stats" id="tK1-1K-i6m"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fOa-fp-eXr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6jp-ZT-tv7" kind="relationship" relationship="rootViewController" id="MpC-TJ-R4h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DHb-Yr-nwX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="213" y="-82"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
