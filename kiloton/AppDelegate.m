@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import "UserProfileViewController.h"
 #import "LoginViewController.h"
+#import "HistoryTableViewController.h"
 #import "UserModel.h"
 
 @interface AppDelegate ()
@@ -25,7 +25,7 @@ static NSString * userModelName = @"UserModel";
     [FBProfilePictureView  class];
     // Override point for customization after application launch.
     if ([self checkSessionExpiration]) {
-        UserProfileViewController *profileViewController = [[UIStoryboard storyboardWithName:@"UserProfile" bundle:nil] instantiateViewControllerWithIdentifier:@"profileViewController"];
+        HistoryTableViewController *profileViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"logedInTabBar"];
         self.window.rootViewController = profileViewController;
     }
     return YES;
@@ -89,7 +89,7 @@ static NSString * userModelName = @"UserModel";
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"kiloDB.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"kilotDB.sqlite"];
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
