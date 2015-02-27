@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="384" y="512"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="Tul-Pw-I6v">
             <objects>
-                <viewController storyboardIdentifier="registering" id="uOZ-jk-4KS" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="registering" id="uOZ-jk-4KS" customClass="RegistrationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bmF-H6-Gcx"/>
                         <viewControllerLayoutGuide type="bottom" id="1A2-CN-oqT"/>
