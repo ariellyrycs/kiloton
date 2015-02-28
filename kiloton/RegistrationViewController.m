@@ -32,11 +32,6 @@ static NSString * sprintModelName = @"SprintModel";
     self.navigationItem.hidesBackButton = YES;
 }
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.currentWeight resignFirstResponder];
-    [self.weightToLose resignFirstResponder];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
