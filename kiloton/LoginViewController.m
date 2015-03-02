@@ -12,10 +12,11 @@
 #import "UserModel.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
+#import "UserModel.h"
 
 
 @interface LoginViewController () <FBLoginViewDelegate>
-
+@property (strong) NSManagedObjectContext *context;
 - (void)getInfo;
 @end
 
@@ -27,6 +28,7 @@ static NSString * sprintModelName = @"SprintModel";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.profileStoryboard = [UIStoryboard storyboardWithName:@"UserProfile" bundle:nil];
+    self.context = self.managedObjectContext;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,18 +56,25 @@ static NSString * sprintModelName = @"SprintModel";
 -(void)getInfo {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
-            NSManagedObjectContext *context = [self managedObjectContext];
-            UserModel *newList = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:context];
+            UserModel *newList = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
             newList.name = user[@"name"];
             newList.accessToken = self.getToken;
             newList.idProfile = user.objectID;
             NSError *error;
-            if(![[self managedObjectContext] save:&error]) {
+            if(![self.context save:&error]) {
                 NSLog(@"Error %@",error);
             }
             [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
         }
     }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier  isEqual: @"showProfileConfig"]) {
+        RegistrationViewController *registrationVC = segue.destinationViewController;
+        registrationVC.context = self.context;
+    }
 }
 
 - (NSString*) getToken {

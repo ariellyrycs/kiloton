@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *currentWeight;
 @property (weak, nonatomic) IBOutlet UITextField *weightToLose;
 @property (weak, nonatomic) IBOutlet UIDatePicker *finalDate;
+@property (strong) NSManagedObjectContext *context;
 - (IBAction)sendWeight:(id)sender;
 @end

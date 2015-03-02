@@ -37,19 +37,13 @@ static NSString * sprintModelName = @"SprintModel";
     // Dispose of any resources that can be recreated.
 }
 
-- (NSManagedObjectContext *) managedObjectContext{
-    return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
-}
-
-
 -(id)getCurrentUser {
-    NSManagedObjectContext *context = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:context];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:self.context];
     [fetchRequest setEntity:entity];
     NSError *error;
     
-    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
+    NSArray *results = [self.context executeFetchRequest:fetchRequest error:&error];
     
     if (error) {
         NSLog(@"Error %@", error);
@@ -67,7 +61,7 @@ static NSString * sprintModelName = @"SprintModel";
 
 - (void)saveContext{
     NSError *error;
-    if(![[self managedObjectContext] save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     }
 }
@@ -100,14 +94,13 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (void) saveSprintData {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    SprintModel *newSprint = [NSEntityDescription insertNewObjectForEntityForName:sprintModelName inManagedObjectContext:context];
+    SprintModel *newSprint = [NSEntityDescription insertNewObjectForEntityForName:sprintModelName inManagedObjectContext:self.context];
     newSprint.currentDate = [NSDate date];
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
     NSError *error;
-    if(![self.managedObjectContext save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     } else {
         [self changeStoryboard:@"Main" identifier: @"logedInTabBar"];
