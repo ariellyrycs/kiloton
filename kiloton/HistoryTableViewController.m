@@ -30,11 +30,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
     self.context = self.managedObjectContext;
     self.UserModelObject = self.getUserObject;
-    self.currentUser = self.UserModelObject.firstObject;
-    NSArray * s = [[self.currentUser.sprints allObjects] mutableCopy];
-    self.currentSprint = s.lastObject;
-    
-    NSLog(@"%@", self.currentSprint.eachInteraction);
+    [self setCurrentSprint];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,15 +97,21 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
--(void)getInfo {
+- (void)getInfo {
     self.status = [self.currentSprint.eachInteraction allObjects];
     [self.tableView reloadData];
 }
 
 
--(NSMutableArray *) getUserObject {
+- (NSMutableArray *) getUserObject {
     NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
     return [[self.context executeFetchRequest:request error:nil] mutableCopy];
+}
+
+- (void) setCurrentSprint {
+    self.currentUser = self.UserModelObject.firstObject;
+    NSArray * s = [[self.currentUser.sprints allObjects] mutableCopy];
+    self.currentSprint = s.lastObject;
 }
 
 #pragma mark - Segue methods
