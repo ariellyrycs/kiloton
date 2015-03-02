@@ -26,6 +26,8 @@ static NSString* iteractionModelName = @"InteractionsModel";
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
     self.UserModelObject = [self getUserObject];
+    NSLog(@"%@", self.UserModelObject);
+    
     self.context = [self managedObjectContext];
 }
 
