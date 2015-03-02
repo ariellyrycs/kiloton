@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="InteractionsModel" representedClassName="InteractionsModel" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="registrationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="interactionBelongs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SprintModel" inverseName="eachInteraction" inverseEntity="SprintModel" syncable="YES"/>
     </entity>
     <entity name="SprintModel" representedClassName="SprintModel" syncable="YES">
         <attribute name="currentDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="currentWeight" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="weightObjective" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eachInteraction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InteractionsModel" inverseName="interactionBelongs" inverseEntity="InteractionsModel" syncable="YES"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserModel" inverseName="sprints" inverseEntity="UserModel" syncable="YES"/>
     </entity>
     <entity name="UserModel" syncable="YES">
         <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idProfile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="sprints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SprintModel" inverseName="owner" inverseEntity="SprintModel" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SprintModel" positionX="-45" positionY="27" width="128" height="105"/>
-        <element name="UserModel" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="InteractionsModel" positionX="-54" positionY="36" width="128" height="105"/>
+        <element name="InteractionsModel" positionX="-54" positionY="36" width="128" height="118"/>
+        <element name="SprintModel" positionX="-56" positionY="-108" width="128" height="133"/>
+        <element name="UserModel" positionX="-263" positionY="-36" width="128" height="103"/>
     </elements>
 </model>

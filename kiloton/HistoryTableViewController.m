@@ -74,7 +74,6 @@ static NSString* iteractionModelName = @"InteractionsModel";
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
-    NSLog(@"jeje");
     return cell;
 }
 
