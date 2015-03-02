@@ -32,14 +32,14 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h9b-4b-ddn">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sorprised" translatesAutoresizingMaskIntoConstraints="NO" id="h9b-4b-ddn">
                         <rect key="frame" x="275" y="22" width="37" height="37"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="37" id="NdV-hE-Id3"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0vq-j4-TDA">
-                        <rect key="frame" x="84" y="29" width="183" height="20.5"/>
+                        <rect key="frame" x="84" y="29" width="183" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -77,5 +77,6 @@
     </objects>
     <resources>
         <image name="blank-calendar" width="408" height="441"/>
+        <image name="sorprised" width="128" height="128"/>
     </resources>
 </document>

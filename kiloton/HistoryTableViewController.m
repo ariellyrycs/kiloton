@@ -75,10 +75,23 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [NSString stringWithFormat:@"%li", (long)day];
 }
 
--(NSString *)weightLostSinceTheLastCheck:(NSString *)from to:(NSString *)to {
+-(int) weightLostSinceTheLastCheck:(NSString *)from to:(NSString *)to {
+    return [to intValue] - [from intValue];
+}
+
+- (NSString *) getEmoticonBy:(int) weightLost {
+    NSString* emoticonName;
     
-    
-    return @"";
+    if(weightLost > 2) {
+        emoticonName = @"sorprised";
+    } else if(weightLost > 0) {
+        emoticonName = @"happy";
+    } else if(weightLost < 0) {
+        emoticonName = @"sorrow";
+    } else if(weightLost == 0) {
+        emoticonName = @"normal";
+    }
+    return emoticonName;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,9 +100,14 @@ static NSString* iteractionModelName = @"InteractionsModel";
         cell = [[HistoryCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
+    int weightLost = [self weightLostSinceTheLastCheck:self.currentSprint.currentWeight to:state.weight];
+    NSLog(@"weight Lost: %i", weightLost);
+    NSLog(@"initial weight: %@", self.currentSprint.currentWeight);
+    NSLog(@"currentWeight: %@", state.weight);
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
-    cell.status.text = [self weightLostSinceTheLastCheck:@"" to:state.weight];
+    cell.status.text = [NSString stringWithFormat:@"Weight loss %i", weightLost];
+    cell.emoticon.image = [UIImage imageNamed:[self getEmoticonBy:weightLost]];
     return cell;
 }
 
@@ -110,8 +128,8 @@ static NSString* iteractionModelName = @"InteractionsModel";
 
 - (void) setCurrentSprint {
     self.currentUser = self.UserModelObject.firstObject;
-    NSArray * s = [[self.currentUser.sprints allObjects] mutableCopy];
-    self.currentSprint = s.lastObject;
+    NSArray * sprints = [[self.currentUser.sprints allObjects] mutableCopy];
+    self.currentSprint = sprints.lastObject;
 }
 
 #pragma mark - Segue methods
