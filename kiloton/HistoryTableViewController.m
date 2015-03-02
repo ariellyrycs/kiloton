@@ -10,6 +10,7 @@
 #import "HistoryCellTableViewCell.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
+#import "UserModel.h"
 
 @interface HistoryTableViewController ()
 @property NSArray* status;
@@ -22,6 +23,8 @@ static NSString* iteractionModelName = @"InteractionsModel";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
+    self.UserModelObject = [self getUserObject];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,12 +61,18 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [calMonth stringFromDate:date];
 }
 
--(NSString *) getDay:(NSDate *) date {
+- (NSString *) getDay:(NSDate *) date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDateComponents *components = [calendar components:units fromDate:date];
     NSInteger day = [components day];
     return [NSString stringWithFormat:@"%li", (long)day];
+}
+
+-(NSString *)weightLostSinceTheLastCheck:(NSString *)from to:(NSString *)to {
+    
+    
+    return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,6 +83,8 @@ static NSString* iteractionModelName = @"InteractionsModel";
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
+    NSLog(@"%@", state);
+    cell.status.text = [self weightLostSinceTheLastCheck:@"" to:state.weight];
     return cell;
 }
 
@@ -100,5 +111,11 @@ static NSString* iteractionModelName = @"InteractionsModel";
 -(void)getInfo {
     self.status = [self getStatus];
     [self.tableView reloadData];
+}
+
+
+-(UserModel *) getUserObject {
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
+    return [[[self managedObjectContext] executeFetchRequest:request error:nil] mutableCopy];
 }
 @end
