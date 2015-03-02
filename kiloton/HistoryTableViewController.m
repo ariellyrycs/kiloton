@@ -30,7 +30,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
     self.context = self.managedObjectContext;
     self.UserModelObject = self.getUserObject;
-    [self setCurrentSprint];
+    self.currentSprint = self.getCurrentSprint;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,10 +126,14 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [[self.context executeFetchRequest:request error:nil] mutableCopy];
 }
 
-- (void) setCurrentSprint {
+- (SprintModel *) getCurrentSprint {
     self.currentUser = self.UserModelObject.firstObject;
     NSArray * sprints = [[self.currentUser.sprints allObjects] mutableCopy];
-    self.currentSprint = sprints.lastObject;
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [sprints sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
 }
 
 #pragma mark - Segue methods
