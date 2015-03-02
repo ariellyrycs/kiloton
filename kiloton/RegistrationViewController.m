@@ -94,6 +94,7 @@ static NSString * sprintModelName = @"SprintModel";
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
+    [[self.userArray objectAtIndex:0] addSprintsObject:newSprint];
     NSError *error;
     if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
