@@ -97,23 +97,11 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return cell;
 }
 
-- (NSArray *) getStatus {
-    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[InteractionsModel description]];
-    NSError *error;
-    NSArray *results = [[self.context executeFetchRequest:request error:&error] mutableCopy];
-    if (error) {
-        NSLog(@"Error %@", error);
-        return nil;
-    }
-    return results;
-}
-
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
 -(void)getInfo {
-    //self.status = [self getStatus];
     self.status = [self.currentSprint.eachInteraction allObjects];
     [self.tableView reloadData];
 }
