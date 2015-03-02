@@ -12,7 +12,6 @@
 #import "UserModel.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
-#import "UserModel.h"
 
 
 @interface LoginViewController () <FBLoginViewDelegate>

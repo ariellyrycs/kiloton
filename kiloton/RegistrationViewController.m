@@ -15,7 +15,7 @@
 #import "UIView+RoundersCorners.h"
 
 @interface RegistrationViewController ()
-
+@property (strong) NSMutableArray * userArray;
 @end
 
 static NSString * userModelName = @"UserModel";
@@ -38,19 +38,14 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 -(id)getCurrentUser {
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:self.context];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[userModelName description]];
     NSError *error;
-    
-    NSArray *results = [self.context executeFetchRequest:fetchRequest error:&error];
-    
+    self.userArray =  [[self.context executeFetchRequest:request error:nil] mutableCopy];
     if (error) {
         NSLog(@"Error %@", error);
         return nil;
     }
-    
-    return [results objectAtIndex:0];
+    return [self.userArray objectAtIndex:0];
 }
 
 - (void) showInfo {
