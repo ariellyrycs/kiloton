@@ -8,12 +8,14 @@
 
 #import "HistoryTableViewController.h"
 #import "HistoryCellTableViewCell.h"
+#import "CreateStatusViewController.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
 
 @interface HistoryTableViewController ()
 @property NSArray* status;
+@property NSManagedObjectContext *context;
 @end
 
 static NSString* cellIdentifier = @"weightCell";
@@ -24,7 +26,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
     self.UserModelObject = [self getUserObject];
-    
+    self.context = [self managedObjectContext];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,7 +91,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 - (NSArray *) getStatus {
-    NSManagedObjectContext *context = [self managedObjectContext];
+    NSManagedObjectContext *context = self.context;
     NSFetchRequest *fetchRequest = [NSFetchRequest new];
     NSEntityDescription *entity = [NSEntityDescription entityForName:iteractionModelName inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
@@ -116,6 +118,17 @@ static NSString* iteractionModelName = @"InteractionsModel";
 
 -(UserModel *) getUserObject {
     NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
-    return [[[self managedObjectContext] executeFetchRequest:request error:nil] mutableCopy];
+    return [[self.context executeFetchRequest:request error:nil] mutableCopy];
+}
+
+#pragma mark - Segue methods
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier  isEqual: @"newInteractionTransition"]) {
+        CreateStatusViewController * csvc = segue.destinationViewController;
+        //csvc.UserModelObject = self.UserModelObject;
+        csvc.context = self.context;
+    }
 }
 @end

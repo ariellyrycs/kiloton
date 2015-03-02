@@ -15,7 +15,7 @@
         <relationship name="eachInteraction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InteractionsModel" inverseName="interactionBelongs" inverseEntity="InteractionsModel" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserModel" inverseName="sprints" inverseEntity="UserModel" syncable="YES"/>
     </entity>
-    <entity name="UserModel" syncable="YES">
+    <entity name="UserModel" representedClassName="UserModel" syncable="YES">
         <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="idProfile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>

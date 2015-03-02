@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 
 @interface CreateStatusViewController ()
-- (NSManagedObjectContext *) managedObjectContext;
 @end
 
 static NSString *iteractionsModelName = @"InteractionsModel";
@@ -46,10 +45,6 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 }
 */
 
-- (NSManagedObjectContext *) managedObjectContext{
-    return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
-}
-
 - (IBAction)send:(id)sender {
     if(![self.comment isEqual:@""] || [self.currentWeight.text intValue]) {
         [self save];
@@ -58,14 +53,13 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 
 
 - (void) save {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    InteractionsModel *newInteracton = [NSEntityDescription insertNewObjectForEntityForName:iteractionsModelName inManagedObjectContext:context];
+    InteractionsModel *newInteracton = [NSEntityDescription insertNewObjectForEntityForName:iteractionsModelName inManagedObjectContext:self.context];
     newInteracton.registrationDate = [NSDate date];
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
     NSError *error;
-    if(![self.managedObjectContext save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     } else {
         [self.navigationController popViewControllerAnimated:YES];
