@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "UserModel.h"
 @interface HistoryTableViewController : UITableViewController
-@property (strong) UserModel *UserModelObject;
+@property (strong) NSMutableArray *UserModelObject;
 @end

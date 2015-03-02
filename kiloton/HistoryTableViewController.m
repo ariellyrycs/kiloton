@@ -12,10 +12,13 @@
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
+#import "SprintModel.h"
 
 @interface HistoryTableViewController ()
 @property NSArray* status;
 @property NSManagedObjectContext *context;
+@property UserModel *currentUser;
+@property SprintModel *currentSprint;
 @end
 
 static NSString* cellIdentifier = @"weightCell";
@@ -25,10 +28,13 @@ static NSString* iteractionModelName = @"InteractionsModel";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
-    self.UserModelObject = [self getUserObject];
-    NSLog(@"%@", self.UserModelObject);
+    self.context = self.managedObjectContext;
+    self.UserModelObject = self.getUserObject;
+    self.currentUser = self.UserModelObject.firstObject;
+    NSArray * s = [[self.currentUser.sprints allObjects] mutableCopy];
+    self.currentSprint = s.lastObject;
     
-    self.context = [self managedObjectContext];
+    NSLog(@"%@", self.currentSprint.eachInteraction);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -87,20 +93,14 @@ static NSString* iteractionModelName = @"InteractionsModel";
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
-    NSLog(@"%@", state);
     cell.status.text = [self weightLostSinceTheLastCheck:@"" to:state.weight];
     return cell;
 }
 
 - (NSArray *) getStatus {
-    NSManagedObjectContext *context = self.context;
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:iteractionModelName inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[InteractionsModel description]];
     NSError *error;
-    
-    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
-    
+    NSArray *results = [[self.context executeFetchRequest:request error:&error] mutableCopy];
     if (error) {
         NSLog(@"Error %@", error);
         return nil;
@@ -113,12 +113,13 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 -(void)getInfo {
-    self.status = [self getStatus];
+    //self.status = [self getStatus];
+    self.status = [self.currentSprint.eachInteraction allObjects];
     [self.tableView reloadData];
 }
 
 
--(UserModel *) getUserObject {
+-(NSMutableArray *) getUserObject {
     NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
     return [[self.context executeFetchRequest:request error:nil] mutableCopy];
 }
@@ -129,7 +130,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
 {
     if ([segue.identifier  isEqual: @"newInteractionTransition"]) {
         CreateStatusViewController * csvc = segue.destinationViewController;
-        //csvc.UserModelObject = self.UserModelObject;
+        csvc.currentSprint = self.currentSprint;
         csvc.context = self.context;
     }
 }

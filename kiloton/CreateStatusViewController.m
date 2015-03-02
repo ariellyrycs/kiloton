@@ -48,6 +48,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
+    [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
     if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
