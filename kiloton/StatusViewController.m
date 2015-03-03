@@ -10,12 +10,13 @@
 #import "AppDelegate.h"
 #import "UserModel.h"
 #import "SprintModel.h"
+#import "InteractionsModel.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 #import "LoginViewController.h"
 
 @interface StatusViewController ()
-
+@property (strong) NSManagedObjectContext * context;
 @end
 
 static NSString *userModelName = @"UserModel";
@@ -24,33 +25,63 @@ static NSString *userModelName = @"UserModel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self showInfo];
     [self.userImage makeRounderCorners];
+    self.context = self.managedObjectContext;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self showInfo];
 }
 
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
+- (SprintModel *) getCurrentSprint:(UserModel *)currentUser {
+    NSArray * sprints = [[currentUser.sprints allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [sprints sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
+}
+
 -(id)getCurrentUser {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
     NSError *error;
-    
-    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
-    
+    NSMutableArray *UserModelObject =  [[self.context executeFetchRequest:request error:&error] mutableCopy];
     if (error) {
         NSLog(@"Error %@", error);
         return nil;
     }
+    return UserModelObject.firstObject;
+}
+
+- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
+    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [interaction sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
     
-    return [results objectAtIndex:0];
+}
+
+-(int)calculateWeightLost:(NSString *)lastInteractionWeight initialIteraction:(NSString *)initialInteraction {
+    return ([initialInteraction intValue] - [lastInteractionWeight intValue]) * -1;
 }
 
 - (void) showInfo {
     UserModel *managedObject = self.getCurrentUser;
+    SprintModel *currentSprint = [self getCurrentSprint:managedObject];
+    InteractionsModel *lastInteraction = [self getLastInteraction:currentSprint];
+    if(currentSprint.eachInteraction.count) {
+        self.weightLost.text =  [NSString stringWithFormat:@"Weight loss %i Kg", [self calculateWeightLost:lastInteraction.weight initialIteraction: currentSprint.currentWeight]];
+    } else {
+        self.weightLost.text = @"Weight loss 0 Kg";
+    }
+    self.currentWeight.text = [NSString stringWithFormat:@"Current weight %@ Kg", currentSprint.currentWeight ];
     self.userImage.profileID = managedObject.idProfile;
 }
 
@@ -68,13 +99,13 @@ static NSString *userModelName = @"UserModel";
 
 - (void) deleteCurrentUserInfo {
     NSManagedObject *managedObject = self.getCurrentUser;
-    [[self managedObjectContext] deleteObject:managedObject];
+    [self.context deleteObject:managedObject];
     [self saveContext];
 }
 
 - (void)saveContext{
     NSError *error;
-    if(![[self managedObjectContext] save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     }
 }
