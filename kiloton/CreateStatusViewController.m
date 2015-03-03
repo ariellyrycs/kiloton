@@ -9,6 +9,7 @@
 #import "CreateStatusViewController.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
+#import "SprintModel.h"
 
 @interface CreateStatusViewController ()
 @end
@@ -23,6 +24,28 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     self.comment.layer.borderColor = [[UIColor grayColor] CGColor];
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
+    self.checkDate.minimumDate = self.getLastcheckDate;
+}
+
+- (NSDate *)getLastcheckDate {
+    NSDate * lastCheck;
+    if(self.currentSprint.eachInteraction.count) {
+        InteractionsModel *lastInteraction = [self getLastInteraction:self.currentSprint];
+        lastCheck = lastInteraction.date;
+    } else {
+        lastCheck = self.currentSprint.currentDate;
+    }
+    return lastCheck;
+}
+
+- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
+    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [interaction sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
+    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
