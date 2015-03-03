@@ -15,7 +15,7 @@
 #import "UIView+RoundersCorners.h"
 
 @interface RegistrationViewController ()
-
+@property (strong) NSMutableArray * userArray;
 @end
 
 static NSString * userModelName = @"UserModel";
@@ -37,26 +37,15 @@ static NSString * sprintModelName = @"SprintModel";
     // Dispose of any resources that can be recreated.
 }
 
-- (NSManagedObjectContext *) managedObjectContext{
-    return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
-}
-
-
 -(id)getCurrentUser {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[userModelName description]];
     NSError *error;
-    
-    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
-    
+    self.userArray =  [[self.context executeFetchRequest:request error:nil] mutableCopy];
     if (error) {
         NSLog(@"Error %@", error);
         return nil;
     }
-    
-    return [results objectAtIndex:0];
+    return [self.userArray objectAtIndex:0];
 }
 
 - (void) showInfo {
@@ -67,7 +56,7 @@ static NSString * sprintModelName = @"SprintModel";
 
 - (void)saveContext{
     NSError *error;
-    if(![[self managedObjectContext] save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     }
 }
@@ -82,15 +71,6 @@ static NSString * sprintModelName = @"SprintModel";
     }];
 }
 
-/*
- #pragma mark - Navigation
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
 - (IBAction)sendWeight:(id)sender {
     if([self.currentWeight.text intValue] && [self.weightToLose.text intValue]) {
         [self saveSprintData];
@@ -100,14 +80,14 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (void) saveSprintData {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    SprintModel *newSprint = [NSEntityDescription insertNewObjectForEntityForName:sprintModelName inManagedObjectContext:context];
+    SprintModel *newSprint = [NSEntityDescription insertNewObjectForEntityForName:sprintModelName inManagedObjectContext:self.context];
     newSprint.currentDate = [NSDate date];
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
+    [[self.userArray objectAtIndex:0] addSprintsObject:newSprint];
     NSError *error;
-    if(![self.managedObjectContext save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     } else {
         [self changeStoryboard:@"Main" identifier: @"logedInTabBar"];

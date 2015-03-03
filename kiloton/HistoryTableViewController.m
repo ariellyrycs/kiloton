@@ -8,11 +8,17 @@
 
 #import "HistoryTableViewController.h"
 #import "HistoryCellTableViewCell.h"
+#import "CreateStatusViewController.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
+#import "UserModel.h"
+#import "SprintModel.h"
 
 @interface HistoryTableViewController ()
 @property NSArray* status;
+@property NSManagedObjectContext *context;
+@property UserModel *currentUser;
+@property SprintModel *currentSprint;
 @end
 
 static NSString* cellIdentifier = @"weightCell";
@@ -22,19 +28,21 @@ static NSString* iteractionModelName = @"InteractionsModel";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self getInfo];
+    self.context = self.managedObjectContext;
+    self.UserModelObject = self.getUserObject;
+    self.currentSprint = self.getCurrentSprint;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self getInfo];
+}
+
 
 #pragma mark - Table view data source
 
@@ -59,7 +67,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [calMonth stringFromDate:date];
 }
 
--(NSString *) getDay:(NSDate *) date {
+- (NSString *) getDay:(NSDate *) date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSCalendarUnit units = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
     NSDateComponents *components = [calendar components:units fromDate:date];
@@ -67,85 +75,83 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return [NSString stringWithFormat:@"%li", (long)day];
 }
 
+-(int) weightLostSinceTheLastCheck:(NSString *)from to:(NSString *)to {
+    return ([from intValue] - [to intValue]) * -1;
+}
+
+- (NSString *) getEmoticonBy:(int) weightLost {
+    NSString* emoticonName;
+    
+    if(weightLost < -2) {
+        emoticonName = @"happy";
+    } else if(weightLost < 0) {
+        emoticonName = @"sorprised";
+    } else if(weightLost > 0) {
+        emoticonName = @"sorrow";
+    } else if(weightLost == 0) {
+        emoticonName = @"normal";
+    }
+    return emoticonName;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    int weightLost;
     HistoryCellTableViewCell* cell = (HistoryCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier: cellIdentifier];
     if (cell == nil) {
         cell = [[HistoryCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
+    if(indexPath.row) {
+        InteractionsModel *lastState = [self.status objectAtIndex:indexPath.row - 1];
+        weightLost = [self weightLostSinceTheLastCheck:lastState.weight to:state.weight];
+    } else {
+        weightLost = [self weightLostSinceTheLastCheck:self.currentSprint.currentWeight to:state.weight];
+    }
+    
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
+    cell.status.text = [NSString stringWithFormat:@" %i Kg", weightLost];
+    cell.emoticon.image = [UIImage imageNamed:[self getEmoticonBy:weightLost]];
     return cell;
-}
-
-- (NSArray *) getStatus {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:iteractionModelName inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSError *error;
-    
-    NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
-    
-    if (error) {
-        NSLog(@"Error %@", error);
-        return nil;
-    }
-    return results;
 }
 
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
--(void)getInfo {
-    self.status = [self getStatus];
+- (void)getInfo {
+    NSArray * status = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    self.status = [status sortedArrayUsingDescriptors:descriptors];
     [self.tableView reloadData];
 }
 
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (NSMutableArray *) getUserObject {
+    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
+    return [[self.context executeFetchRequest:request error:nil] mutableCopy];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (SprintModel *) getCurrentSprint {
+    self.currentUser = self.UserModelObject.firstObject;
+    NSArray * sprints = [[self.currentUser.sprints allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [sprints sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+#pragma mark - Segue methods
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier  isEqual: @"newInteractionTransition"]) {
+        CreateStatusViewController * csvc = segue.destinationViewController;
+        csvc.currentSprint = self.currentSprint;
+        csvc.context = self.context;
+    }
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

@@ -9,9 +9,9 @@
 #import "CreateStatusViewController.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
+#import "SprintModel.h"
 
 @interface CreateStatusViewController ()
-- (NSManagedObjectContext *) managedObjectContext;
 @end
 
 static NSString *iteractionsModelName = @"InteractionsModel";
@@ -24,6 +24,33 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     self.comment.layer.borderColor = [[UIColor grayColor] CGColor];
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
+    self.checkDate.minimumDate = self.getLastcheckDate;
+    self.checkDate.maximumDate = self.getLimitcheckDate;
+}
+
+- (NSDate *)getLimitcheckDate {
+    return self.currentSprint.lastDate;
+}
+
+- (NSDate *)getLastcheckDate {
+    NSDate * lastCheck;
+    if(self.currentSprint.eachInteraction.count) {
+        InteractionsModel *lastInteraction = [self getLastInteraction:self.currentSprint];
+        lastCheck = lastInteraction.date;
+    } else {
+        lastCheck = self.currentSprint.currentDate;
+    }
+    return lastCheck;
+}
+
+- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
+    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:NO];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *reverseOrder = [interaction sortedArrayUsingDescriptors:descriptors];
+    return reverseOrder.firstObject;
+    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -36,20 +63,6 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (NSManagedObjectContext *) managedObjectContext{
-    return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
-}
-
 - (IBAction)send:(id)sender {
     if(![self.comment isEqual:@""] || [self.currentWeight.text intValue]) {
         [self save];
@@ -58,14 +71,14 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 
 
 - (void) save {
-    NSManagedObjectContext *context = [self managedObjectContext];
-    InteractionsModel *newInteracton = [NSEntityDescription insertNewObjectForEntityForName:iteractionsModelName inManagedObjectContext:context];
+    InteractionsModel *newInteracton = [NSEntityDescription insertNewObjectForEntityForName:iteractionsModelName inManagedObjectContext:self.context];
     newInteracton.registrationDate = [NSDate date];
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
+    [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
-    if(![self.managedObjectContext save:&error]) {
+    if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     } else {
         [self.navigationController popViewControllerAnimated:YES];

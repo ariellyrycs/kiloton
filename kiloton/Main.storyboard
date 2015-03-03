@@ -38,7 +38,7 @@
                     <navigationItem key="navigationItem" title="History" id="eol-HE-9QM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qgX-it-QuD">
                             <connections>
-                                <segue destination="4aa-qh-Dpi" kind="push" id="RBd-Fv-8Sp"/>
+                                <segue destination="4aa-qh-Dpi" kind="push" identifier="newInteractionTransition" id="RBd-Fv-8Sp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
