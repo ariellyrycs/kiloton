@@ -76,17 +76,17 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 -(int) weightLostSinceTheLastCheck:(NSString *)from to:(NSString *)to {
-    return [to intValue] - [from intValue];
+    return ([from intValue] - [to intValue]) * -1;
 }
 
 - (NSString *) getEmoticonBy:(int) weightLost {
     NSString* emoticonName;
     
-    if(weightLost > 2) {
-        emoticonName = @"sorprised";
-    } else if(weightLost > 0) {
+    if(weightLost < -2) {
         emoticonName = @"happy";
     } else if(weightLost < 0) {
+        emoticonName = @"sorprised";
+    } else if(weightLost > 0) {
         emoticonName = @"sorrow";
     } else if(weightLost == 0) {
         emoticonName = @"normal";
@@ -95,18 +95,22 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    int weightLost;
     HistoryCellTableViewCell* cell = (HistoryCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier: cellIdentifier];
     if (cell == nil) {
         cell = [[HistoryCellTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     InteractionsModel *state = [self.status objectAtIndex:indexPath.row];
-    int weightLost = [self weightLostSinceTheLastCheck:self.currentSprint.currentWeight to:state.weight];
-    NSLog(@"weight Lost: %i", weightLost);
-    NSLog(@"initial weight: %@", self.currentSprint.currentWeight);
-    NSLog(@"currentWeight: %@", state.weight);
+    if(indexPath.row) {
+        InteractionsModel *lastState = [self.status objectAtIndex:indexPath.row - 1];
+        weightLost = [self weightLostSinceTheLastCheck:lastState.weight to:state.weight];
+    } else {
+        weightLost = [self weightLostSinceTheLastCheck:self.currentSprint.currentWeight to:state.weight];
+    }
+    
     cell.month.text = [self getMonthName:state.date];
     cell.day.text = [self getDay:state.date];
-    cell.status.text = [NSString stringWithFormat:@"Weight loss %i", weightLost];
+    cell.status.text = [NSString stringWithFormat:@" %i Kg", weightLost];
     cell.emoticon.image = [UIImage imageNamed:[self getEmoticonBy:weightLost]];
     return cell;
 }
@@ -116,7 +120,11 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 - (void)getInfo {
-    self.status = [self.currentSprint.eachInteraction allObjects];
+    NSArray * status = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    self.status = [status sortedArrayUsingDescriptors:descriptors];
     [self.tableView reloadData];
 }
 
