@@ -25,6 +25,11 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
     self.checkDate.minimumDate = self.getLastcheckDate;
+    self.checkDate.maximumDate = self.getLimitcheckDate;
+}
+
+- (NSDate *)getLimitcheckDate {
+    return self.currentSprint.lastDate;
 }
 
 - (NSDate *)getLastcheckDate {
