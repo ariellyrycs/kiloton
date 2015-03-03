@@ -69,7 +69,7 @@ static NSString *userModelName = @"UserModel";
 }
 
 -(int)calculateWeightLost:(NSString *)lastInteractionWeight initialIteraction:(NSString *)initialInteraction {
-    return ([initialInteraction intValue] - [lastInteractionWeight intValue]) * -1;
+    return [initialInteraction intValue] - [lastInteractionWeight intValue];
 }
 
 - (void) showInfo {
