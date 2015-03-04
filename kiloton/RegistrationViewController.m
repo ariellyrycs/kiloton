@@ -73,7 +73,11 @@ static NSString * sprintModelName = @"SprintModel";
 
 - (IBAction)sendWeight:(id)sender {
     if([self.currentWeight.text intValue] && [self.weightToLose.text intValue]) {
-        [self saveSprintData];
+        if([self.currentWeight.text intValue] >= [self.weightToLose.text intValue]) {
+            [self saveSprintData];
+        } else {
+            [self showMessageAlert:@"" title:@"Weight to lose has to be less than your current weight"];
+        }
     } else {
         [self showMessageAlert:@"" title:@"It couldn't save"];
     }
