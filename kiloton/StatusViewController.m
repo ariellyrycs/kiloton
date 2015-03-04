@@ -14,9 +14,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 #import "LoginViewController.h"
+#import "GraphWeightModel.h"
 
 @interface StatusViewController ()
 @property (strong) NSManagedObjectContext * context;
+@property (strong) UserModel *managedObject;
+@property (strong) SprintModel *currentSprint;
+@property (strong) InteractionsModel *lastInteraction;
 @end
 
 static NSString *userModelName = @"UserModel";
@@ -27,6 +31,7 @@ static NSString *userModelName = @"UserModel";
     [super viewDidLoad];
     [self.userImage makeRounderCorners];
     self.context = self.managedObjectContext;
+    [self setModelsObjects];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -34,12 +39,18 @@ static NSString *userModelName = @"UserModel";
     [self showInfo];
 }
 
+-(void)setModelsObjects {
+    self.managedObject = self.getCurrentUser;
+    self.currentSprint = self.getCurrentSprint;
+    self.lastInteraction = self.getLastInteraction;
+}
+
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
-- (SprintModel *) getCurrentSprint:(UserModel *)currentUser {
-    NSArray * sprints = [[currentUser.sprints allObjects] mutableCopy];
+- (SprintModel *) getCurrentSprint {
+    NSArray * sprints = [[self.managedObject.sprints allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
                                                                ascending:NO];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
@@ -58,8 +69,8 @@ static NSString *userModelName = @"UserModel";
     return UserModelObject.firstObject;
 }
 
-- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
-    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
+- (InteractionsModel *) getLastInteraction {
+    NSArray * interaction = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
                                                                ascending:NO];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
@@ -73,16 +84,13 @@ static NSString *userModelName = @"UserModel";
 }
 
 - (void) showInfo {
-    UserModel *managedObject = self.getCurrentUser;
-    SprintModel *currentSprint = [self getCurrentSprint:managedObject];
-    InteractionsModel *lastInteraction = [self getLastInteraction:currentSprint];
-    if(currentSprint.eachInteraction.count) {
-        self.weightLost.text =  [NSString stringWithFormat:@"Weight loss %i Kg", [self calculateWeightLost:lastInteraction.weight initialIteraction: currentSprint.currentWeight]];
+    if(self.currentSprint.eachInteraction.count) {
+        self.weightLost.text =  [NSString stringWithFormat:@"Weight loss %i Kg", [self calculateWeightLost:self.lastInteraction.weight initialIteraction: self.currentSprint.currentWeight]];
     } else {
         self.weightLost.text = @"Weight loss 0 Kg";
     }
-    self.currentWeight.text = [NSString stringWithFormat:@"Current weight %@ Kg", currentSprint.currentWeight ];
-    self.userImage.profileID = managedObject.idProfile;
+    self.currentWeight.text = [NSString stringWithFormat:@"Current weight %@ Kg", self.currentSprint.currentWeight ];
+    self.userImage.profileID = self.managedObject.idProfile;
 }
 
 - (void)didReceiveMemoryWarning {
