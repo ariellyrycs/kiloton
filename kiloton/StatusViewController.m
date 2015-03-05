@@ -14,9 +14,14 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 #import "LoginViewController.h"
+#import "GraphWeightModel.h"
 
 @interface StatusViewController ()
 @property (strong) NSManagedObjectContext * context;
+@property (strong) UserModel *managedObject;
+@property (strong) SprintModel *currentSprint;
+@property (strong) InteractionsModel *lastInteraction;
+@property (strong) GraphWeightModel *graphWeightObject;
 @end
 
 static NSString *userModelName = @"UserModel";
@@ -31,15 +36,23 @@ static NSString *userModelName = @"UserModel";
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self setModelsObjects];
+    [self setGraphModelInfo];
     [self showInfo];
+}
+
+-(void)setModelsObjects {
+    self.managedObject = self.getCurrentUser;
+    self.currentSprint = self.getCurrentSprint;
+    self.lastInteraction = self.getLastInteraction;
 }
 
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
 
-- (SprintModel *) getCurrentSprint:(UserModel *)currentUser {
-    NSArray * sprints = [[currentUser.sprints allObjects] mutableCopy];
+- (SprintModel *) getCurrentSprint {
+    NSArray * sprints = [[self.managedObject.sprints allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
                                                                ascending:NO];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
@@ -58,8 +71,8 @@ static NSString *userModelName = @"UserModel";
     return UserModelObject.firstObject;
 }
 
-- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
-    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
+- (InteractionsModel *) getLastInteraction {
+    NSArray * interaction = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
                                                                ascending:NO];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
@@ -69,20 +82,18 @@ static NSString *userModelName = @"UserModel";
 }
 
 -(int)calculateWeightLost:(NSString *)lastInteractionWeight initialIteraction:(NSString *)initialInteraction {
-    return ([initialInteraction intValue] - [lastInteractionWeight intValue]) * -1;
+    return [initialInteraction intValue] - [lastInteractionWeight intValue];
 }
 
 - (void) showInfo {
-    UserModel *managedObject = self.getCurrentUser;
-    SprintModel *currentSprint = [self getCurrentSprint:managedObject];
-    InteractionsModel *lastInteraction = [self getLastInteraction:currentSprint];
-    if(currentSprint.eachInteraction.count) {
-        self.weightLost.text =  [NSString stringWithFormat:@"Weight loss %i Kg", [self calculateWeightLost:lastInteraction.weight initialIteraction: currentSprint.currentWeight]];
+    if(self.currentSprint.eachInteraction.count) {
+        self.weightLost.text =  [NSString stringWithFormat:@"Weight loss: %i Kg", [self calculateWeightLost:self.lastInteraction.weight initialIteraction: self.currentSprint.currentWeight]];
+        self.currentWeight.text = [NSString stringWithFormat:@"Current weight: %@ Kg", self.lastInteraction.weight ];
     } else {
         self.weightLost.text = @"Weight loss 0 Kg";
+        self.currentWeight.text = [NSString stringWithFormat:@"Current weight: %@ Kg", self.currentSprint.currentWeight ];
     }
-    self.currentWeight.text = [NSString stringWithFormat:@"Current weight %@ Kg", currentSprint.currentWeight ];
-    self.userImage.profileID = managedObject.idProfile;
+    self.userImage.profileID = self.managedObject.idProfile;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,5 +130,66 @@ static NSString *userModelName = @"UserModel";
         appDelegate.window.rootViewController = profileViewController;
     }];
 }
+
+
+-(void)setGraphModelInfo {
+    self.graphWeightObject = [GraphWeightModel new];
+    [self setDaysRanges];
+    [self setWeightRanges];
+    [self setPlotEstimationInfo];
+}
+
+
+-(void)setDaysRanges {
+    self.graphWeightObject.numberOfDays = [self daysBetween:self.currentSprint.currentDate :self.currentSprint.lastDate];
+}
+
+- (int)daysBetween:(NSDate *)dt1 :(NSDate *)dt2 {
+    NSUInteger unitFlags = NSCalendarUnitDay;
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
+    return (int)([components day] + 1);
+}
+
+- (void)setWeightRanges {
+    self.graphWeightObject.objectiveRange = [self.currentSprint.weightObjective intValue];
+    self.graphWeightObject.initialRange = [self.currentSprint.currentWeight intValue];
+}
+
+- (NSMutableArray *) getEstimation {
+    NSMutableArray * estimation;
+    float tmpEstimation = (([self.currentSprint.weightObjective intValue] - [self.currentSprint.currentWeight intValue]) / self.graphWeightObject.numberOfDays);
+    for(int i = 0; i < self.graphWeightObject.numberOfDays; i++) {
+        estimation[i] = [NSNumber numberWithInt: tmpEstimation * i];
+    }
+    return estimation;
+}
+
+-(void)setPlotEstimationInfo{
+    self.graphWeightObject.estimationSpots = self.getEstimation;
+}
+
+-(NSMutableDictionary *) getResult {
+    NSMutableDictionary * result;
+    NSArray * interaction = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
+                                                               ascending:YES];
+    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *interactionsInOrder = [interaction sortedArrayUsingDescriptors:descriptors];
+    int dayNumber;
+    InteractionsModel * tmpInteractions;
+    for(int i = 0; i < interactionsInOrder.count; i++) {
+        tmpInteractions = interactionsInOrder[i];
+        dayNumber = [self.currentSprint.currentWeight intValue] - [tmpInteractions.weight intValue];
+        result[[NSString stringWithFormat:@"%i", dayNumber]] = tmpInteractions.weight;
+        
+    }
+    return result;
+}
+
+-(void) setResult {
+    self.graphWeightObject.resultSpots = self.getResult;
+}
+
 
 @end
