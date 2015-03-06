@@ -12,8 +12,8 @@
 @property NSArray * datesInSprint;
 @property NSArray * estimationSpots;
 @property NSMutableDictionary * resultSpots;
-@property (nonatomic)int numberOfDays;
-@property (nonatomic)int objectiveRange;
-@property (nonatomic)int initialRange;
+@property (nonatomic, strong) NSNumber * numberOfDays;
+@property (nonatomic, strong) NSNumber * objectiveRange;
+@property (nonatomic, strong) NSNumber * initialRange;
 
 @end

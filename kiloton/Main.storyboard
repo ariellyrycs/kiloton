@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--History-->
@@ -196,28 +197,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Check Weight:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0V-qn-QB8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Check Weight:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0V-qn-QB8">
                                 <rect key="frame" x="16" y="267" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="feu-Lo-L9C" customClass="FBProfilePictureView">
-                                <rect key="frame" x="100" y="117" width="130" height="130"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight Lost: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zus-yU-rbu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight Lost: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zus-yU-rbu">
                                 <rect key="frame" x="16" y="296" width="288" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-1t-hiW">
-                                <rect key="frame" x="0.0" y="325" width="320" height="186"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4VT-1t-hiW">
+                                <rect key="frame" x="0.0" y="324" width="320" height="187"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Vbw-UT-LkH"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feu-Lo-L9C" customClass="FBProfilePictureView">
+                                <rect key="frame" x="95" y="72" width="130" height="130"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="Bd7-1v-nSy"/>
+                                    <constraint firstAttribute="width" constant="130" id="Qtq-RT-ebr"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="K0V-qn-QB8" firstAttribute="top" secondItem="feu-Lo-L9C" secondAttribute="bottom" constant="65" id="065-UA-y4z"/>
+                            <constraint firstItem="feu-Lo-L9C" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leadingMargin" priority="250" constant="79" id="10r-YG-w6x"/>
+                            <constraint firstItem="feu-Lo-L9C" firstAttribute="centerX" secondItem="K0V-qn-QB8" secondAttribute="centerX" id="1VE-g0-Kcx"/>
+                            <constraint firstItem="zus-yU-rbu" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leadingMargin" id="8wJ-Da-fS6"/>
+                            <constraint firstItem="K0V-qn-QB8" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leadingMargin" id="Cv5-xp-5kL"/>
+                            <constraint firstItem="zus-yU-rbu" firstAttribute="top" secondItem="K0V-qn-QB8" secondAttribute="bottom" constant="8" id="FKh-98-t1Q"/>
+                            <constraint firstItem="4VT-1t-hiW" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leading" id="IPr-Uz-VXg"/>
+                            <constraint firstItem="feu-Lo-L9C" firstAttribute="top" secondItem="7Ua-Jj-Yq6" secondAttribute="bottom" constant="8" id="Kin-B7-KfX"/>
+                            <constraint firstItem="feu-Lo-L9C" firstAttribute="centerX" secondItem="zus-yU-rbu" secondAttribute="centerX" id="MCs-ta-Mgu"/>
+                            <constraint firstItem="nYZ-xf-zDU" firstAttribute="top" secondItem="4VT-1t-hiW" secondAttribute="bottom" constant="8" id="PEJ-xN-q7c"/>
+                            <constraint firstItem="K0V-qn-QB8" firstAttribute="trailing" secondItem="mTp-Qk-mPx" secondAttribute="trailingMargin" id="acs-k2-Zlq"/>
+                            <constraint firstItem="4VT-1t-hiW" firstAttribute="top" secondItem="zus-yU-rbu" secondAttribute="bottom" constant="8" id="b6F-D0-AuE"/>
+                            <constraint firstAttribute="trailing" secondItem="4VT-1t-hiW" secondAttribute="trailing" id="bIO-mc-fUg"/>
+                            <constraint firstItem="zus-yU-rbu" firstAttribute="trailing" secondItem="mTp-Qk-mPx" secondAttribute="trailingMargin" id="vr3-vu-XRd"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="status" id="szB-7q-TTz">
                         <barButtonItem key="rightBarButtonItem" title="Sign Out" id="4Vl-U3-3XZ">
@@ -228,6 +252,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currentWeight" destination="K0V-qn-QB8" id="Y17-yF-hZI"/>
+                        <outlet property="scatterView" destination="4VT-1t-hiW" id="n4d-ht-KFw"/>
                         <outlet property="userImage" destination="feu-Lo-L9C" id="6OO-Hc-Zx0"/>
                         <outlet property="weightLost" destination="zus-yU-rbu" id="ptz-DI-3Yg"/>
                     </connections>

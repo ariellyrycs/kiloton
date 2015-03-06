@@ -13,6 +13,7 @@
 #import "InteractionsModel.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
+#import "UIView+ScatterPlot.h"
 #import "LoginViewController.h"
 #import "GraphWeightModel.h"
 
@@ -38,6 +39,7 @@ static NSString *userModelName = @"UserModel";
 {
     [self setModelsObjects];
     [self setGraphModelInfo];
+    [self.scatterView initPlot:self.graphWeightObject];
     [self showInfo];
 }
 
@@ -142,25 +144,29 @@ static NSString *userModelName = @"UserModel";
 
 -(void)setDaysRanges {
     self.graphWeightObject.numberOfDays = [self daysBetween:self.currentSprint.currentDate :self.currentSprint.lastDate];
+    NSLog(@"%@", self.graphWeightObject.numberOfDays);
 }
 
-- (int)daysBetween:(NSDate *)dt1 :(NSDate *)dt2 {
+- (NSNumber *)daysBetween:(NSDate *)dt1 :(NSDate *)dt2 {
     NSUInteger unitFlags = NSCalendarUnitDay;
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *components = [calendar components:unitFlags fromDate:dt1 toDate:dt2 options:0];
-    return (int)([components day] + 1);
+    return [NSNumber numberWithLongLong:([components day] + 1)];
 }
 
 - (void)setWeightRanges {
-    self.graphWeightObject.objectiveRange = [self.currentSprint.weightObjective intValue];
-    self.graphWeightObject.initialRange = [self.currentSprint.currentWeight intValue];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.graphWeightObject.objectiveRange = [f numberFromString:self.currentSprint.weightObjective];
+    self.graphWeightObject.initialRange = [f numberFromString: self.currentSprint.currentWeight];
 }
 
 - (NSMutableArray *) getEstimation {
-    NSMutableArray * estimation;
-    float tmpEstimation = (([self.currentSprint.weightObjective intValue] - [self.currentSprint.currentWeight intValue]) / self.graphWeightObject.numberOfDays);
-    for(int i = 0; i < self.graphWeightObject.numberOfDays; i++) {
+    NSMutableArray *estimation = [[NSMutableArray alloc] init];
+    float tmpEstimation = ([self.currentSprint.weightObjective intValue] - [self.currentSprint.currentWeight intValue]) / [self.graphWeightObject.numberOfDays intValue];
+    for(int i = 0; i < [self.graphWeightObject.numberOfDays intValue]; i++) {
         estimation[i] = [NSNumber numberWithInt: tmpEstimation * i];
+        NSLog(@"%@ %@", [NSNumber numberWithInt: tmpEstimation * i], [estimation objectAtIndex: i]);
     }
     return estimation;
 }
