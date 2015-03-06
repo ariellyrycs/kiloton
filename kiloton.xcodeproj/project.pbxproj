@@ -11,6 +11,7 @@
 		A61FF7B11AA4293A00888738 /* SprintModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61FF7B01AA4293A00888738 /* SprintModel.m */; };
 		A61FF7B41AA4293A00888738 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61FF7B31AA4293A00888738 /* UserModel.m */; };
 		A61FF7B71AA4293B00888738 /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61FF7B61AA4293A00888738 /* InteractionsModel.m */; };
+		A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */; };
 		A623FF9A1AA76F300018E351 /* GraphWeightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A623FF991AA76F300018E351 /* GraphWeightModel.m */; };
 		A662EEF01A9E600F00755425 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEEF1A9E600F00755425 /* StatusViewController.m */; };
 		A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF21A9E75E000755425 /* CreateStatusViewController.m */; };
@@ -50,6 +51,8 @@
 		A61FF7B31AA4293A00888738 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A61FF7B51AA4293A00888738 /* InteractionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionsModel.h; sourceTree = "<group>"; };
 		A61FF7B61AA4293A00888738 /* InteractionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionsModel.m; sourceTree = "<group>"; };
+		A62327561AA7E27000B86654 /* UIView+ScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ScatterPlot.h"; sourceTree = "<group>"; };
+		A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ScatterPlot.m"; sourceTree = "<group>"; };
 		A623FF981AA76F300018E351 /* GraphWeightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphWeightModel.h; sourceTree = "<group>"; };
 		A623FF991AA76F300018E351 /* GraphWeightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphWeightModel.m; sourceTree = "<group>"; };
 		A662EEEE1A9E600F00755425 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				A662EF001A9EA05D00755425 /* HistoryTableViewController.m */,
 				A662EF081A9EA9EA00755425 /* UIView+RoundersCorners.h */,
 				A662EF091A9EA9EA00755425 /* UIView+RoundersCorners.m */,
+				A62327561AA7E27000B86654 /* UIView+ScatterPlot.h */,
+				A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 			files = (
 				A61FF7B71AA4293B00888738 /* InteractionsModel.m in Sources */,
 				A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */,
+				A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */,
 				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
 				A61FF7B41AA4293A00888738 /* UserModel.m in Sources */,
 				A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */,

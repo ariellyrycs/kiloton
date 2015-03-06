@@ -39,7 +39,7 @@ static NSString *userModelName = @"UserModel";
 {
     [self setModelsObjects];
     [self setGraphModelInfo];
-    [self.scatterView initPlot];
+    [self.scatterView initPlot:self.graphWeightObject];
     [self showInfo];
 }
 
@@ -162,10 +162,11 @@ static NSString *userModelName = @"UserModel";
 }
 
 - (NSMutableArray *) getEstimation {
-    NSMutableArray * estimation;
+    NSMutableArray *estimation = [[NSMutableArray alloc] init];
     float tmpEstimation = ([self.currentSprint.weightObjective intValue] - [self.currentSprint.currentWeight intValue]) / [self.graphWeightObject.numberOfDays intValue];
     for(int i = 0; i < [self.graphWeightObject.numberOfDays intValue]; i++) {
         estimation[i] = [NSNumber numberWithInt: tmpEstimation * i];
+        NSLog(@"%@ %@", [NSNumber numberWithInt: tmpEstimation * i], [estimation objectAtIndex: i]);
     }
     return estimation;
 }
