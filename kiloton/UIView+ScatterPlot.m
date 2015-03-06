@@ -138,26 +138,30 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
     x.majorTickLineStyle = axisLineStyle;
     x.majorTickLength = 4.0f;
     x.tickDirection = CPTSignNegative;
-    
-    
     CGFloat dateCount = [self.graphModel.numberOfDays floatValue];
     NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
-    NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
+    NSMutableSet *majorTickLocations = [NSMutableSet setWithCapacity:dateCount];
+    NSMutableSet *minorTickLocations = [NSMutableSet setWithCapacity:dateCount];
     NSInteger namberOfDays = [self.graphModel.numberOfDays integerValue];
-    for(NSInteger i = 0; i < namberOfDays; i++) {
-        CGFloat location = i++;
-        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText: [NSString stringWithFormat:@"%li", (long)i]  textStyle:x.labelTextStyle];
-        label.tickLocation = CPTDecimalFromCGFloat(location);
-        label.offset = x.majorTickLength;
-        if (label) {
-            [xLabels addObject:label];
-            [xLocations addObject:[NSNumber numberWithFloat:location]];
+    NSInteger chunksForLabel = [self calculeteNumberOfLabelsToSet:(long)15 totalOfLocations: namberOfDays];
+    for(NSInteger i = 1; i < namberOfDays; i++) {
+        NSUInteger mod = i % chunksForLabel;
+        if(mod == 0) {
+            CGFloat location = i++;
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText: [NSString stringWithFormat:@"%li", (long)i]  textStyle:x.labelTextStyle];
+            label.tickLocation = CPTDecimalFromCGFloat(location);
+            label.offset = x.majorTickLength;
+            if (label) {
+                [xLabels addObject:label];
+                [majorTickLocations addObject:[NSNumber numberWithFloat:location]];
+            }
+        } else {
+            [minorTickLocations addObject:[NSNumber numberWithFloat:i]];
         }
-        
-        
     }
     x.axisLabels = xLabels;
-    x.majorTickLocations = xLocations;
+    x.majorTickLocations = majorTickLocations;
+    x.minorTickLocations = minorTickLocations;
     // 4 - Configure y-axis
     CPTAxis *y = axisSet.yAxis;
     y.title = @"Weight";
@@ -183,7 +187,6 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
         if (mod == 0) {
             CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%li", (long)j] textStyle:y.labelTextStyle];
             NSDecimal location = CPTDecimalFromInteger(j);
-            
             label.tickLocation = location ;
             label.offset = -y.majorTickLength - y.labelOffset;
             if (label) {
@@ -208,7 +211,7 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
     NSLog(@"%@", self.graphModel.numberOfDays);
-    return [self.graphModel.numberOfDays integerValue];
+    return 2;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
@@ -217,11 +220,20 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
             return [NSNumber numberWithInteger:index];
             break;
         case CPTScatterPlotFieldY:
-             NSLog(@"index: %lu", (unsigned long)index);
             return [self.graphModel.estimationSpots objectAtIndex:index];
             break;
     }
     return [NSDecimalNumber zero];
+}
+
+-(NSInteger)calculeteNumberOfLabelsToSet:(NSInteger)number totalOfLocations:(NSInteger)numberOfLocations {
+    NSInteger j;
+    for(j = 5; j <= 50; j += 5 ) {
+        if((j * number) >= numberOfLocations) {
+            break;
+        }
+    }
+    return j;
 }
 
 
