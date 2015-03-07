@@ -39,8 +39,8 @@ static NSString *userModelName = @"UserModel";
 {
     [self setModelsObjects];
     [self setGraphModelInfo];
-    [self.scatterView initPlot:self.graphWeightObject];
     [self showInfo];
+    [self.scatterView initPlot:self.graphWeightObject];
 }
 
 -(void)setModelsObjects {

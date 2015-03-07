@@ -96,7 +96,7 @@ static NSString * resultPlotName = @"result";
     [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.15f)];
     plotSpace.xRange = xRange;//zoom for each axis
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(3.0f)];
+    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(10.0f)];
     plotSpace.yRange = yRange;
     // 4 - Create styles and symbols
     CPTMutableLineStyle *expLineStyle = [expPlot.dataLineStyle mutableCopy];
