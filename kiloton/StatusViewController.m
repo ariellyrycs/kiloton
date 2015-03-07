@@ -138,13 +138,12 @@ static NSString *userModelName = @"UserModel";
     self.graphWeightObject = [GraphWeightModel new];
     [self setDaysRanges];
     [self setWeightRanges];
-    [self setPlotEstimationInfo];
+    [self setResult];
 }
 
 
 -(void)setDaysRanges {
     self.graphWeightObject.numberOfDays = [self daysBetween:self.currentSprint.currentDate :self.currentSprint.lastDate];
-    NSLog(@"%@", self.graphWeightObject.numberOfDays);
 }
 
 - (NSNumber *)daysBetween:(NSDate *)dt1 :(NSDate *)dt2 {
@@ -161,22 +160,8 @@ static NSString *userModelName = @"UserModel";
     self.graphWeightObject.initialRange = [f numberFromString: self.currentSprint.currentWeight];
 }
 
-- (NSMutableArray *) getEstimation {
-    NSMutableArray *estimation = [[NSMutableArray alloc] init];
-    float tmpEstimation = ([self.currentSprint.weightObjective intValue] - [self.currentSprint.currentWeight intValue]) / [self.graphWeightObject.numberOfDays intValue];
-    for(int i = 0; i < [self.graphWeightObject.numberOfDays intValue]; i++) {
-        estimation[i] = [NSNumber numberWithInt: tmpEstimation * i];
-        NSLog(@"%@ %@", [NSNumber numberWithInt: tmpEstimation * i], [estimation objectAtIndex: i]);
-    }
-    return estimation;
-}
-
--(void)setPlotEstimationInfo{
-    self.graphWeightObject.estimationSpots = self.getEstimation;
-}
-
 -(NSMutableDictionary *) getResult {
-    NSMutableDictionary * result;
+    NSMutableDictionary * result = [[NSMutableDictionary alloc] init];
     NSArray * interaction = [[self.currentSprint.eachInteraction allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
                                                                ascending:YES];
@@ -186,9 +171,8 @@ static NSString *userModelName = @"UserModel";
     InteractionsModel * tmpInteractions;
     for(int i = 0; i < interactionsInOrder.count; i++) {
         tmpInteractions = interactionsInOrder[i];
-        dayNumber = [self.currentSprint.currentWeight intValue] - [tmpInteractions.weight intValue];
-        result[[NSString stringWithFormat:@"%i", dayNumber]] = tmpInteractions.weight;
-        
+        dayNumber = [[self daysBetween:self.currentSprint.currentDate :tmpInteractions.date] intValue];
+        [result setValue:tmpInteractions.weight forKey:[NSString stringWithFormat:@"%i", dayNumber]];
     }
     return result;
 }
