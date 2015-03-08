@@ -10,7 +10,6 @@
 
 @interface GraphWeightModel : NSObject
 @property NSArray * datesInSprint;
-@property NSArray * estimationSpots;
 @property NSMutableDictionary * resultSpots;
 @property (nonatomic, strong) NSNumber * numberOfDays;
 @property (nonatomic, strong) NSNumber * objectiveRange;

@@ -14,9 +14,10 @@
 
 static void * hostViewPropertyKey = &hostViewPropertyKey;
 static void * graphModelPropertyKey = &graphModelPropertyKey;
+static NSString * expectedPlotName = @"expected";
+static NSString * resultPlotName = @"result";
 
 @implementation UIView (ScatterPlot)
-NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
 #pragma mark - Chart behavior
 
 - (CPTGraphHostingView *)hostView {
@@ -67,8 +68,8 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
     graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
     graph.titleDisplacement = CGPointMake(0.0f, 15.0f);
     // 4 - Set padding for plot area
-    [graph.plotAreaFrame setPaddingLeft:18.0f];
-    [graph.plotAreaFrame setPaddingBottom:20.0f];
+    [graph.plotAreaFrame setPaddingLeft:1.0f];
+    [graph.plotAreaFrame setPaddingBottom:1.0f];
     // 5 - Enable user interactions for plot space
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     plotSpace.allowsUserInteraction = YES;
@@ -79,31 +80,47 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
     CPTGraph *graph = self.hostView.hostedGraph;
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
     // 2 - Create the three plots
-    CPTScatterPlot *aaplPlot = [[CPTScatterPlot alloc] init];
-    aaplPlot.dataSource = self;
-    aaplPlot.identifier = CPDTickerSymbolAAPL;
-    CPTColor *aaplColor = [CPTColor redColor];
-    [graph addPlot:aaplPlot toPlotSpace:plotSpace];
+    CPTScatterPlot *expPlot = [[CPTScatterPlot alloc] init];
+    expPlot.dataSource = self;
+    expPlot.identifier = expectedPlotName;
+    CPTColor *expColor = [CPTColor redColor];
+    [graph addPlot:expPlot toPlotSpace:plotSpace];
+    CPTScatterPlot *resultPlot = [[CPTScatterPlot alloc] init];
+    resultPlot.dataSource = self;
+    resultPlot.identifier = resultPlotName;
+    CPTColor *resultlColor = [CPTColor blueColor];
+    [graph addPlot:resultPlot toPlotSpace:plotSpace];
     // 3 - Set up plot space
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:aaplPlot, nil]];
+    [plotSpace scaleToFitPlots:[NSArray arrayWithObjects:expPlot, nil]];
     CPTMutablePlotRange *xRange = [plotSpace.xRange mutableCopy];
     [xRange expandRangeByFactor:CPTDecimalFromCGFloat(1.15f)];
     plotSpace.xRange = xRange;//zoom for each axis
     CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(3.0f)];
+    [yRange expandRangeByFactor:CPTDecimalFromCGFloat(10.0f)];
     plotSpace.yRange = yRange;
     // 4 - Create styles and symbols
-    CPTMutableLineStyle *aaplLineStyle = [aaplPlot.dataLineStyle mutableCopy];
-    aaplLineStyle.lineWidth = 2.5;
-    aaplLineStyle.lineColor = aaplColor;
-    aaplPlot.dataLineStyle = aaplLineStyle;
-    CPTMutableLineStyle *aaplSymbolLineStyle = [CPTMutableLineStyle lineStyle];
-    aaplSymbolLineStyle.lineColor = aaplColor;
-    CPTPlotSymbol *aaplSymbol = [CPTPlotSymbol ellipsePlotSymbol];
-    aaplSymbol.fill = [CPTFill fillWithColor:aaplColor];
-    aaplSymbol.lineStyle = aaplSymbolLineStyle;
-    aaplSymbol.size = CGSizeMake(5.0f, 5.0f);
-    aaplPlot.plotSymbol = aaplSymbol;
+    CPTMutableLineStyle *expLineStyle = [expPlot.dataLineStyle mutableCopy];
+    expLineStyle.lineWidth = 2.5;
+    expLineStyle.lineColor = expColor;
+    expPlot.dataLineStyle = expLineStyle;
+    CPTMutableLineStyle *expSymbolLineStyle = [CPTMutableLineStyle lineStyle];
+    expSymbolLineStyle.lineColor = expColor;
+    CPTPlotSymbol *expSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+    expSymbol.fill = [CPTFill fillWithColor:expColor];
+    expSymbol.lineStyle = expSymbolLineStyle;
+    expSymbol.size = CGSizeMake(5.0f, 5.0f);
+    expPlot.plotSymbol = expSymbol;
+    CPTMutableLineStyle *resultLineStyle = [resultPlot.dataLineStyle mutableCopy];
+    resultLineStyle.lineWidth = 2.5;
+    resultLineStyle.lineColor = resultlColor;
+    resultPlot.dataLineStyle = resultLineStyle;
+    CPTMutableLineStyle *resultSymbolLineStyle = [CPTMutableLineStyle lineStyle];
+    resultSymbolLineStyle.lineColor = resultlColor;
+    CPTPlotSymbol *resultSymbol = [CPTPlotSymbol ellipsePlotSymbol];
+    resultSymbol.fill = [CPTFill fillWithColor:resultlColor];
+    resultSymbol.lineStyle = resultSymbolLineStyle;
+    resultSymbol.size = CGSizeMake(5.0f, 5.0f);
+    resultPlot.plotSymbol = resultSymbol;
 }
 
 -(void)configureAxes {
@@ -138,26 +155,30 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
     x.majorTickLineStyle = axisLineStyle;
     x.majorTickLength = 4.0f;
     x.tickDirection = CPTSignNegative;
-    
-    
     CGFloat dateCount = [self.graphModel.numberOfDays floatValue];
     NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
-    NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
+    NSMutableSet *majorTickLocations = [NSMutableSet setWithCapacity:dateCount];
+    NSMutableSet *minorTickLocations = [NSMutableSet setWithCapacity:dateCount];
     NSInteger namberOfDays = [self.graphModel.numberOfDays integerValue];
-    for(NSInteger i = 0; i < namberOfDays; i++) {
-        CGFloat location = i++;
-        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText: [NSString stringWithFormat:@"%li", (long)i]  textStyle:x.labelTextStyle];
-        label.tickLocation = CPTDecimalFromCGFloat(location);
-        label.offset = x.majorTickLength;
-        if (label) {
-            [xLabels addObject:label];
-            [xLocations addObject:[NSNumber numberWithFloat:location]];
+    NSInteger chunksForLabel = [self calculeteNumberOfLabelsToSet:(long)15 totalOfLocations: namberOfDays];
+    for(NSInteger i = 1; i < namberOfDays; i++) {
+        NSUInteger mod = i % chunksForLabel;
+        if(mod == 0) {
+            CGFloat location = i++;
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText: [NSString stringWithFormat:@"%li", (long)i]  textStyle:x.labelTextStyle];
+            label.tickLocation = CPTDecimalFromCGFloat(location);
+            label.offset = x.majorTickLength;
+            if (label) {
+                [xLabels addObject:label];
+                [majorTickLocations addObject:[NSNumber numberWithFloat:location]];
+            }
+        } else {
+            [minorTickLocations addObject:[NSNumber numberWithFloat:i]];
         }
-        
-        
     }
     x.axisLabels = xLabels;
-    x.majorTickLocations = xLocations;
+    x.majorTickLocations = majorTickLocations;
+    x.minorTickLocations = minorTickLocations;
     // 4 - Configure y-axis
     CPTAxis *y = axisSet.yAxis;
     y.title = @"Weight";
@@ -183,7 +204,6 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
         if (mod == 0) {
             CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%li", (long)j] textStyle:y.labelTextStyle];
             NSDecimal location = CPTDecimalFromInteger(j);
-            
             label.tickLocation = location ;
             label.offset = -y.majorTickLength - y.labelOffset;
             if (label) {
@@ -207,21 +227,66 @@ NSString *  const CPDTickerSymbolAAPL       = @"AAPL";
 #pragma mark - CPTPlotDataSource methods
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-    NSLog(@"%@", self.graphModel.numberOfDays);
-    return [self.graphModel.numberOfDays integerValue];
+    NSInteger numberOfRecords;
+    NSArray *recordKeys = [self.graphModel.resultSpots allKeys];
+    if(plot.identifier == resultPlotName) {
+        numberOfRecords = recordKeys.count + 1;
+    } else if(plot.identifier == expectedPlotName) {
+        numberOfRecords = 2;
+    }
+    return numberOfRecords;
+}
+
+-(NSArray *) getSortedResultlocations  {
+    return [[self.graphModel.resultSpots allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        if ([obj1 intValue]==[obj2 intValue]) {
+            return NSOrderedSame;
+        } else if ([obj1 intValue]<[obj2 intValue]) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    switch (fieldEnum) {
-        case CPTScatterPlotFieldX:
-            return [NSNumber numberWithInteger:index];
-            break;
-        case CPTScatterPlotFieldY:
-             NSLog(@"index: %lu", (unsigned long)index);
-            return [self.graphModel.estimationSpots objectAtIndex:index];
-            break;
+    if(plot.identifier == resultPlotName) {
+        NSArray *sortedKey = [self getSortedResultlocations];;
+        if(fieldEnum == CPTScatterPlotFieldX) {
+            if(index == 0) {
+                return @1;
+            }
+            return sortedKey[index - 1];
+        } else if(fieldEnum == CPTScatterPlotFieldY) {
+            if(index == 0) {
+                return self.graphModel.initialRange;
+            }
+            return [self.graphModel.resultSpots objectForKey: sortedKey[index - 1]];
+        }
+    } else if(plot.identifier == expectedPlotName) {
+        if(fieldEnum == CPTScatterPlotFieldX) {
+            if(index == 0) {
+                return @1;
+            }
+            return self.graphModel.numberOfDays;
+        } else if(fieldEnum == CPTScatterPlotFieldY) {
+            if(index == 0) {
+                return self.graphModel.initialRange;
+            }
+            return self.graphModel.objectiveRange;
+        }
     }
     return [NSDecimalNumber zero];
+}
+
+-(NSInteger)calculeteNumberOfLabelsToSet:(NSInteger)number totalOfLocations:(NSInteger)numberOfLocations {
+    NSInteger j;
+    for(j = 5; j <= 50; j += 5 ) {
+        if((j * number) >= numberOfLocations) {
+            break;
+        }
+    }
+    return j;
 }
 
 
