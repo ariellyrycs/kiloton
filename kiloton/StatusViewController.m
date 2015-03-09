@@ -107,7 +107,7 @@ static NSString *userModelName = @"UserModel";
     NSLog(@"You're logged out");
     [self deleteCurrentUserInfo];
     [FBSession.activeSession closeAndClearTokenInformation];
-    [self changeStoryboard:@"Login" identifier: @"loginViewController"];
+    [self changeStoryboard:@"Login" identifier: @"StartingNav"];
 }
 
 - (void) deleteCurrentUserInfo {
