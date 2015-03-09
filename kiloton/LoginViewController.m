@@ -16,6 +16,7 @@
 
 @interface LoginViewController () <FBLoginViewDelegate>
 @property (strong) NSManagedObjectContext *context;
+@property (strong) UserModel *userModel;
 - (void)getInfo;
 @end
 
@@ -55,10 +56,11 @@ static NSString * sprintModelName = @"SprintModel";
 -(void)getInfo {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
-            UserModel *newList = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
-            newList.name = user[@"name"];
-            newList.accessToken = self.getToken;
-            newList.idProfile = user.objectID;
+            self.userModel = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
+            self.userModel.name = user[@"name"];
+            self.userModel.accessToken = self.getToken;
+            self.userModel.idProfile = user.objectID;
+            self.userModel.active = [NSNumber numberWithBool:NO];
             NSError *error;
             if(![self.context save:&error]) {
                 NSLog(@"Error %@",error);
@@ -73,6 +75,7 @@ static NSString * sprintModelName = @"SprintModel";
     if ([segue.identifier  isEqual: @"showProfileConfig"]) {
         RegistrationViewController *registrationVC = segue.destinationViewController;
         registrationVC.context = self.context;
+        registrationVC.userModel = self.userModel;
     }
 }
 

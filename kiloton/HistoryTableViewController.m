@@ -29,7 +29,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"HistoryCellTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellIdentifier];
     self.context = self.managedObjectContext;
-    self.UserModelObject = self.getUserObject;
+    self.currentUser = self.getCurrentUser;
     self.currentSprint = self.getCurrentSprint;
 }
 
@@ -129,13 +129,29 @@ static NSString* iteractionModelName = @"InteractionsModel";
 }
 
 
-- (NSMutableArray *) getUserObject {
+-(id)getCurrentUser {
     NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[UserModel description]];
-    return [[self.context executeFetchRequest:request error:nil] mutableCopy];
+    NSError *error;
+    NSMutableArray *UserModelObject =  [[self.context executeFetchRequest:request error:&error] mutableCopy];
+    if (error) {
+        NSLog(@"Error %@", error);
+        return nil;
+    }
+    return [self findActiveSession: UserModelObject];
+}
+
+-(UserModel *)findActiveSession:(NSMutableArray *)userModelObjects {
+    UserModel * activeUserModel;
+    for(NSInteger i = 0; i < userModelObjects.count; i++) {
+        activeUserModel = [userModelObjects objectAtIndex:i];
+        if([activeUserModel.active  isEqual: @1]) {
+            break;
+        }
+    }
+    return activeUserModel;
 }
 
 - (SprintModel *) getCurrentSprint {
-    self.currentUser = self.UserModelObject.firstObject;
     NSArray * sprints = [[self.currentUser.sprints allObjects] mutableCopy];
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"currentDate"
                                                                ascending:NO];

@@ -70,7 +70,18 @@ static NSString *userModelName = @"UserModel";
         NSLog(@"Error %@", error);
         return nil;
     }
-    return UserModelObject.firstObject;
+    return [self findActiveSession: UserModelObject];
+}
+
+-(UserModel *)findActiveSession:(NSMutableArray *)userModelObjects {
+    UserModel * activeUserModel;
+    for(NSInteger i = 0; i < userModelObjects.count; i++) {
+        activeUserModel = [userModelObjects objectAtIndex:i];
+        if([activeUserModel.active  isEqual: @1]) {
+            break;
+        }
+    }
+    return activeUserModel;
 }
 
 - (InteractionsModel *) getLastInteraction {
@@ -105,20 +116,13 @@ static NSString *userModelName = @"UserModel";
 
 - (IBAction)signOut:(id)sender {
     NSLog(@"You're logged out");
-    [self deleteCurrentUserInfo];
+    [self deactivateSccount];
     [FBSession.activeSession closeAndClearTokenInformation];
     [self changeStoryboard:@"Login" identifier: @"StartingNav"];
 }
 
-- (void) deleteCurrentUserInfo {
-    NSFetchRequest *fetchRequest = [NSFetchRequest new];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:self.context];
-    [fetchRequest setEntity:entity];
-    NSError *error;
-    NSArray *fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
-    for (NSManagedObject *managedObject in fetchedObjects) {
-        [self.context deleteObject:managedObject];
-    }
+- (void) deactivateSccount {
+    self.managedObject.active = [NSNumber numberWithBool:NO];
     [self saveContext];
 }
 

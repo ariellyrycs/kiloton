@@ -146,11 +146,14 @@ static NSString * userModelName = @"UserModel";
     [fetchRequest setEntity:entity];
     NSError *error;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if(!error && fetchedObjects.count != 0 ) {
-        return YES;
-    } else {
-        return NO;
+    UserModel * tmpUserModel;
+    for(NSInteger i = 0; i < fetchedObjects.count; i++) {
+        tmpUserModel = [fetchedObjects objectAtIndex:i];
+        if([tmpUserModel.active  isEqual: @1]) {
+            return YES;
+        }
     }
+    return NO;
 }
 
 @end

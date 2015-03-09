@@ -2,7 +2,7 @@
 //  UserModel.h
 //  kiloton
 //
-//  Created by Ariel Robles on 3/1/15.
+//  Created by Ariel Robles on 3/8/15.
 //  Copyright (c) 2015 nearsoft. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSString * accessToken;
 @property (nonatomic, retain) NSString * idProfile;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSNumber * active;
 @property (nonatomic, retain) NSSet *sprints;
 @end
 

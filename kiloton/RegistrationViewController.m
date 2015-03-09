@@ -15,7 +15,6 @@
 #import "UIView+RoundersCorners.h"
 
 @interface RegistrationViewController ()
-@property (strong) NSMutableArray * userArray;
 @end
 
 static NSString * userModelName = @"UserModel";
@@ -37,21 +36,9 @@ static NSString * sprintModelName = @"SprintModel";
     // Dispose of any resources that can be recreated.
 }
 
--(id)getCurrentUser {
-    NSFetchRequest * request = [NSFetchRequest fetchRequestWithEntityName:[userModelName description]];
-    NSError *error;
-    self.userArray =  [[self.context executeFetchRequest:request error:nil] mutableCopy];
-    if (error) {
-        NSLog(@"Error %@", error);
-        return nil;
-    }
-    return [self.userArray objectAtIndex:0];
-}
-
 - (void) showInfo {
-    UserModel *managedObject = self.getCurrentUser;
-    self.name.text = managedObject.name;
-    self.userImage.profileID = managedObject.idProfile;
+    self.name.text = self.userModel.name;
+    self.userImage.profileID = self.userModel.idProfile;
 }
 
 - (void)saveContext{
@@ -89,13 +76,19 @@ static NSString * sprintModelName = @"SprintModel";
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
-    [[self.userArray objectAtIndex:0] addSprintsObject:newSprint];
+    [self.userModel addSprintsObject:newSprint];
     NSError *error;
     if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
     } else {
+        [self setActiveSession];
         [self changeStoryboard:@"Main" identifier: @"logedInTabBar"];
     }
+}
+
+-(void) setActiveSession {
+    self.userModel.active = [NSNumber numberWithBool:YES];
+    [self saveContext];
 }
 
 - (void) showMessageAlert:message title: title{

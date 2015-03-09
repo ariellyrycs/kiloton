@@ -2,7 +2,7 @@
 //  UserModel.m
 //  kiloton
 //
-//  Created by Ariel Robles on 3/1/15.
+//  Created by Ariel Robles on 3/8/15.
 //  Copyright (c) 2015 nearsoft. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 @dynamic accessToken;
 @dynamic idProfile;
 @dynamic name;
+@dynamic active;
 @dynamic sprints;
 
 @end
