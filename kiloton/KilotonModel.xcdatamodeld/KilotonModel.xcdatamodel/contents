@@ -17,6 +17,7 @@
     </entity>
     <entity name="UserModel" representedClassName="UserModel" syncable="YES">
         <attribute name="accessToken" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="active" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="idProfile" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="sprints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SprintModel" inverseName="owner" inverseEntity="SprintModel" syncable="YES"/>
@@ -24,6 +25,6 @@
     <elements>
         <element name="InteractionsModel" positionX="-54" positionY="36" width="128" height="118"/>
         <element name="SprintModel" positionX="-56" positionY="-108" width="128" height="133"/>
-        <element name="UserModel" positionX="-263" positionY="-36" width="128" height="103"/>
+        <element name="UserModel" positionX="-263" positionY="-36" width="128" height="120"/>
     </elements>
 </model>
