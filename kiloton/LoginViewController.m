@@ -56,18 +56,41 @@ static NSString * sprintModelName = @"SprintModel";
 -(void)getInfo {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
-            self.userModel = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
-            self.userModel.name = user[@"name"];
-            self.userModel.accessToken = self.getToken;
-            self.userModel.idProfile = user.objectID;
-            self.userModel.active = [NSNumber numberWithBool:NO];
-            NSError *error;
-            if(![self.context save:&error]) {
-                NSLog(@"Error %@",error);
+            if(![self checkUserExistenceBy:user.objectID]) {
+                self.userModel = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
+                self.userModel.name = user[@"name"];
+                self.userModel.accessToken = self.getToken;
+                self.userModel.idProfile = user.objectID;
+                self.userModel.active = [NSNumber numberWithBool:NO];
+                NSError *error;
+                if(![self.context save:&error]) {
+                    NSLog(@"Error %@",error);
+                }
             }
             [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
         }
     }];
+}
+
+-(BOOL)checkUserExistenceBy:(NSString *)objectID {
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:self.context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    UserModel * tmpUserModel;
+    if(error) {
+        NSLog(@"Error: %@ %@", error, [error debugDescription]);
+        return nil;
+    }
+    for(NSInteger i = 0; i < fetchedObjects.count; i++) {
+        tmpUserModel = [fetchedObjects objectAtIndex:i];
+        if([tmpUserModel.idProfile isEqualToString: objectID]) {
+            self.userModel = tmpUserModel;
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
