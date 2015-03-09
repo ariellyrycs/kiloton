@@ -12,6 +12,7 @@
 #import "UserModel.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
+#import "HistoryTableViewController.h"
 
 
 @interface LoginViewController () <FBLoginViewDelegate>
@@ -67,8 +68,24 @@ static NSString * sprintModelName = @"SprintModel";
                     NSLog(@"Error %@",error);
                 }
             }
-            [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
+            NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
+            if(sprints.count) {
+                self.userModel.active = [NSNumber numberWithBool:YES];
+                [self changeStoryboard:@"Main" identifier:@"logedInTabBar"];
+            } else {
+                [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
+            }
         }
+    }];
+}
+
+- (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier{
+    AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle:nil];
+    LoginViewController *profileViewController = [storyboard instantiateViewControllerWithIdentifier: identifier];
+    [UIView animateWithDuration:0.5 animations:^{
+        [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:appDelegate.window cache:NO];
+        appDelegate.window.rootViewController = profileViewController;
     }];
 }
 
