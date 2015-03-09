@@ -147,11 +147,8 @@ static NSString * userModelName = @"UserModel";
     NSError *error;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if(!error && fetchedObjects.count != 0 ) {
-        UserModel *managedObject = [fetchedObjects objectAtIndex:0];
-        LoginViewController *objectOfYourCustomClass = [LoginViewController new];
-        return [[NSString stringWithFormat:@"%@", [objectOfYourCustomClass getToken]] isEqualToString: [NSString stringWithFormat:@"%@", managedObject.accessToken]];
+        return YES;
     } else {
-        NSLog(@"there isn't information to show");
         return NO;
     }
 }

@@ -111,8 +111,14 @@ static NSString *userModelName = @"UserModel";
 }
 
 - (void) deleteCurrentUserInfo {
-    NSManagedObject *managedObject = self.getCurrentUser;
-    [self.context deleteObject:managedObject];
+    NSFetchRequest *fetchRequest = [NSFetchRequest new];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:userModelName inManagedObjectContext:self.context];
+    [fetchRequest setEntity:entity];
+    NSError *error;
+    NSArray *fetchedObjects = [self.context executeFetchRequest:fetchRequest error:&error];
+    for (NSManagedObject *managedObject in fetchedObjects) {
+        [self.context deleteObject:managedObject];
+    }
     [self saveContext];
 }
 
