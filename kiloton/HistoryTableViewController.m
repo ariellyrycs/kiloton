@@ -16,7 +16,7 @@
 #import "SprintModel.h"
 
 @interface HistoryTableViewController ()
-@property NSArray* status;
+@property NSMutableArray* status;
 @property NSManagedObjectContext *context;
 @property UserModel *currentUser;
 @property SprintModel *currentSprint;
@@ -116,6 +116,29 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [self.context deleteObject:[self.status objectAtIndex:indexPath.row]];
+        NSError *error;
+        if(![self.context save:&error]) {
+            NSLog(@"cant delete  %@ %@", error, [error localizedDescription]);
+            return;
+        }
+        [self.status removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"checkInteraction" sender:indexPath];
 }
@@ -129,7 +152,7 @@ static NSString* iteractionModelName = @"InteractionsModel";
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
                                                                ascending:YES];
     NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    self.status = [status sortedArrayUsingDescriptors:descriptors];
+    self.status = [[status sortedArrayUsingDescriptors:descriptors] mutableCopy];
     [self.tableView reloadData];
 }
 
