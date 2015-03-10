@@ -42,10 +42,72 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="A0B-Ex-T3m" kind="push" identifier="checkInteraction" id="wL0-5T-981"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upl-eI-bVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="612" y="550"/>
+        </scene>
+        <!--View StatusV Iew Controller-->
+        <scene sceneID="6Tt-is-zW9">
+            <objects>
+                <viewController id="A0B-Ex-T3m" customClass="ViewStatusVIewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hF3-m5-coQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="zUn-42-oPt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rZj-So-qSw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wcl-g2-PLS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r3b-xM-ueE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjG-47-tk3">
+                                                <rect key="frame" x="8" y="130" width="304" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKv-cn-Uvd">
+                                                <rect key="frame" x="8" y="164" width="304" height="179"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RS-1k-0D8">
+                                                <rect key="frame" x="8" y="93" width="304" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="r3b-xM-ueE" secondAttribute="height" id="5Gz-js-XnJ"/>
+                            <constraint firstAttribute="width" secondItem="r3b-xM-ueE" secondAttribute="width" id="qkn-Th-kEG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="4fD-Rv-Bld"/>
+                    <connections>
+                        <outlet property="comments" destination="SKv-cn-Uvd" id="Tfa-Dg-GqT"/>
+                        <outlet property="date" destination="YjG-47-tk3" id="2hw-SW-Xaj"/>
+                        <outlet property="weight" destination="4RS-1k-0D8" id="UcN-kL-EOB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QzT-41-1Jy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="1240"/>
         </scene>
         <!--New Interaction-->
         <scene sceneID="VeH-nX-vuP">

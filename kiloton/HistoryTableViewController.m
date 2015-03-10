@@ -9,6 +9,7 @@
 #import "HistoryTableViewController.h"
 #import "HistoryCellTableViewCell.h"
 #import "CreateStatusViewController.h"
+#import "ViewStatusVIewController.h"
 #import "InteractionsModel.h"
 #import "AppDelegate.h"
 #import "UserModel.h"
@@ -115,6 +116,10 @@ static NSString* iteractionModelName = @"InteractionsModel";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"checkInteraction" sender:indexPath];
+}
+
 - (NSManagedObjectContext *) managedObjectContext{
     return [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
 }
@@ -168,6 +173,10 @@ static NSString* iteractionModelName = @"InteractionsModel";
         CreateStatusViewController * csvc = segue.destinationViewController;
         csvc.currentSprint = self.currentSprint;
         csvc.context = self.context;
+    } else if([segue.identifier isEqualToString:@"checkInteraction"]) {
+        NSIndexPath * indexPath = sender;
+        ViewStatusVIewController *vsvc = segue.destinationViewController;
+        vsvc.rowData = [self.status objectAtIndex:indexPath.row];
     }
 }
 @end

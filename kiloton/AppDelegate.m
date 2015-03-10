@@ -146,7 +146,6 @@ static NSString * userModelName = @"UserModel";
     [fetchRequest setEntity:entity];
     NSError *error;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    NSLog(@"%@", fetchedObjects);
     if(error) {
         NSLog(@"Error: %@ %@", error, [error debugDescription]);
         return NO;

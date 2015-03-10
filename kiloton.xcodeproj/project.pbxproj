@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A60CF8E11A9FF9D5003D26C1 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60CF8E01A9FF9D5003D26C1 /* RegistrationViewController.m */; };
+		A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */; };
 		A61D70F31AAD627D0095AC1B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61D70F21AAD627D0095AC1B /* UserModel.m */; };
 		A61FF7B11AA4293A00888738 /* SprintModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61FF7B01AA4293A00888738 /* SprintModel.m */; };
 		A61FF7B71AA4293B00888738 /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61FF7B61AA4293A00888738 /* InteractionsModel.m */; };
@@ -45,6 +46,8 @@
 		41F698D9A20EEA210F43286C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A60CF8DF1A9FF9D5003D26C1 /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		A60CF8E01A9FF9D5003D26C1 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
+		A618A3BD1AAEABD4001053D6 /* ViewStatusVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewStatusVIewController.h; sourceTree = "<group>"; };
+		A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStatusVIewController.m; sourceTree = "<group>"; };
 		A61D70F11AAD627D0095AC1B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		A61D70F21AAD627D0095AC1B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A61FF7AF1AA4293A00888738 /* SprintModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintModel.h; sourceTree = "<group>"; };
@@ -147,6 +150,8 @@
 				A662EF091A9EA9EA00755425 /* UIView+RoundersCorners.m */,
 				A62327561AA7E27000B86654 /* UIView+ScatterPlot.h */,
 				A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */,
+				A618A3BD1AAEABD4001053D6 /* ViewStatusVIewController.h */,
+				A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				A61FF7B71AA4293B00888738 /* InteractionsModel.m in Sources */,
 				A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */,
 				A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */,
+				A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */,
 				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
 				A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */,
 				A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */,
