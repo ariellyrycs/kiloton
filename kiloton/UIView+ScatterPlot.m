@@ -161,16 +161,15 @@ static NSString * resultPlotName = @"result";
     NSMutableSet *minorTickLocations = [NSMutableSet setWithCapacity:dateCount];
     NSInteger namberOfDays = [self.graphModel.numberOfDays integerValue];
     NSInteger chunksForLabel = [self calculeteNumberOfLabelsToSet:(long)15 totalOfLocations: namberOfDays];
-    for(NSInteger i = 1; i < namberOfDays; i++) {
+    for(NSInteger i = 0; i < namberOfDays; i++) {
         NSUInteger mod = i % chunksForLabel;
         if(mod == 0) {
-            CGFloat location = i++;
             CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText: [NSString stringWithFormat:@"%li", (long)i]  textStyle:x.labelTextStyle];
-            label.tickLocation = CPTDecimalFromCGFloat(location);
+            label.tickLocation = CPTDecimalFromCGFloat(i);
             label.offset = x.majorTickLength;
             if (label) {
                 [xLabels addObject:label];
-                [majorTickLocations addObject:[NSNumber numberWithFloat:location]];
+                [majorTickLocations addObject:[NSNumber numberWithFloat:i]];
             }
         } else {
             [minorTickLocations addObject:[NSNumber numberWithFloat:i]];
