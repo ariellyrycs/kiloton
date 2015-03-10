@@ -63,10 +63,6 @@ static NSString * sprintModelName = @"SprintModel";
                 self.userModel.accessToken = self.getToken;
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
-                NSError *error;
-                if(![self.context save:&error]) {
-                    NSLog(@"Error %@",error);
-                }
             }
             NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
             if(sprints.count) {
@@ -74,6 +70,10 @@ static NSString * sprintModelName = @"SprintModel";
                 [self changeStoryboard:@"Main" identifier:@"logedInTabBar"];
             } else {
                 [self performSegueWithIdentifier:@"showProfileConfig" sender:nil];
+            }
+            NSError *error;
+            if(![self.context save:&error]) {
+                NSLog(@"Error %@",error);
             }
         }
     }];
