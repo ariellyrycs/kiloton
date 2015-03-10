@@ -37,6 +37,12 @@ static NSString * sprintModelName = @"SprintModel";
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.scrollView layoutIfNeeded];
+    self.scrollView.contentSize = self.contentView.bounds.size;
+}
+
 -(void)textFieldDidChange :(UITextField *)theTextField {
     NSInteger currentWeight = [self.currentWeight.text integerValue];
     NSInteger objective = [self.weightToLose.text integerValue];
@@ -122,6 +128,23 @@ static NSString * sprintModelName = @"SprintModel";
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"OK", nil];
     [alert show];
+}
+
+- (IBAction)selectAnImage:(id)sender {
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.delegate = self;
+    [self presentViewController:imagePickerController animated:NO completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    self.currentImage.image = image;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
