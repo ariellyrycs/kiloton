@@ -29,11 +29,36 @@ static NSString * sprintModelName = @"SprintModel";
     self.finalDate.minimumDate = [NSDate date];
     [self showInfo];
     self.navigationItem.hidesBackButton = YES;
+    [self.weightToLose addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)textFieldDidChange :(UITextField *)theTextField {
+    NSInteger currentWeight = [self.currentWeight.text integerValue];
+    NSInteger objective = [self.weightToLose.text integerValue];
+    if(currentWeight < objective) {
+        objective = currentWeight;
+    }
+    self.finalDate.minimumDate = [self calculateRequireMothshByWeights:currentWeight objectiveWeight:objective];
+    [self.finalDate setDate:self.finalDate.minimumDate];
+    
+}
+
+-(NSDate *)calculateRequireMothshByWeights:(NSInteger)currentWeight objectiveWeight:(NSInteger)objective {
+    float allowedPorcentagePerMonth = 5;
+    float requiredMonths =  -(((objective * 100) / currentWeight) - 100) / allowedPorcentagePerMonth;
+    return [self convertMonthsToDates:requiredMonths];
+}
+
+-(NSDate *)convertMonthsToDates: (float) months {
+    NSDate *mydate = [NSDate date];
+    NSTimeInterval secondsInEightHours =  60 * 60 * 24 * 30 * months;
+    NSDate *dateEightHoursAhead = [mydate dateByAddingTimeInterval:secondsInEightHours];
+    return dateEightHoursAhead;
 }
 
 - (void) showInfo {
