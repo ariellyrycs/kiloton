@@ -38,8 +38,11 @@ static NSString *userModelName = @"UserModel";
 -(void)viewWillAppear:(BOOL)animated
 {
     [self setModelsObjects];
-    [self setGraphModelInfo];
     [self showInfo];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self setGraphModelInfo];
     [self.scatterView initPlot:self.graphWeightObject];
 }
 
