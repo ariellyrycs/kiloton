@@ -45,7 +45,6 @@ static NSString * sprintModelName = @"SprintModel";
     }
     self.finalDate.minimumDate = [self calculateRequireMothshByWeights:currentWeight objectiveWeight:objective];
     [self.finalDate setDate:self.finalDate.minimumDate];
-    
 }
 
 -(NSDate *)calculateRequireMothshByWeights:(NSInteger)currentWeight objectiveWeight:(NSInteger)objective {
