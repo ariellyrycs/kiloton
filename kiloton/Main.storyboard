@@ -345,7 +345,6 @@
                         <constraints>
                             <constraint firstItem="4VT-1t-hiW" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leading" id="2B1-dH-0UA"/>
                             <constraint firstItem="K0V-qn-QB8" firstAttribute="trailing" secondItem="mTp-Qk-mPx" secondAttribute="trailingMargin" id="3EV-Nj-asE"/>
-                            <constraint firstItem="feu-Lo-L9C" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leading" constant="95" id="87P-Ir-XSE"/>
                             <constraint firstAttribute="trailing" secondItem="4VT-1t-hiW" secondAttribute="trailing" id="B5a-qa-f98"/>
                             <constraint firstItem="K0V-qn-QB8" firstAttribute="leading" secondItem="zus-yU-rbu" secondAttribute="leading" id="EQO-vu-wi7"/>
                             <constraint firstItem="zus-yU-rbu" firstAttribute="trailing" secondItem="mTp-Qk-mPx" secondAttribute="trailingMargin" id="Frk-ju-rQb"/>
@@ -356,6 +355,7 @@
                             <constraint firstItem="K0V-qn-QB8" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leading" constant="16" id="XWZ-9a-3AZ"/>
                             <constraint firstItem="x4P-HR-kIT" firstAttribute="top" secondItem="4VT-1t-hiW" secondAttribute="bottom" constant="8" id="f46-Sj-jXQ"/>
                             <constraint firstItem="zus-yU-rbu" firstAttribute="leading" secondItem="mTp-Qk-mPx" secondAttribute="leading" constant="16" id="kkG-TH-2hU"/>
+                            <constraint firstAttribute="centerX" secondItem="feu-Lo-L9C" secondAttribute="centerX" id="qRQ-hq-DFB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="status" id="szB-7q-TTz">
