@@ -12,6 +12,7 @@
 #import "SprintModel.h"
 
 @interface CreateStatusViewController ()
+@property(strong) NSString *imageURL;
 @end
 
 static NSString *iteractionsModelName = @"InteractionsModel";
@@ -80,6 +81,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
+    newInteracton.imageURL = self.imageURL;
     [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
     if(![self.context save:&error]) {
@@ -103,6 +105,8 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     self.currentImage.image = image;
+    NSURL *url = [info valueForKey:UIImagePickerControllerReferenceURL];
+    self.imageURL = url.absoluteString;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

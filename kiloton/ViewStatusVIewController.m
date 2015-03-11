@@ -24,7 +24,6 @@
     self.weight.text = [NSString stringWithFormat:@"Weight: %@", self.rowData.weight];
     self.date.text = [NSString stringWithFormat:@"Date: %@", [self dateFormat:self.rowData.date]];
     self.comments.text = self.rowData.comment;
-    
 }
 
 -(NSString *) dateFormat:(NSDate *)date {
