@@ -24,7 +24,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     self.comment.layer.borderColor = [[UIColor grayColor] CGColor];
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
-    self.checkDate.minimumDate = self.getLastcheckDate;
+    self.checkDate.minimumDate = [self sumDayTo:self.getLastcheckDate numberOfDays:1];
     self.checkDate.maximumDate = self.getLimitcheckDate;
 }
 
@@ -110,4 +110,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(NSDate *) sumDayTo:(NSDate *)date numberOfDays: (int)number {
+    return [date dateByAddingTimeInterval:60 * 60 * 24 * number];
+}
 @end
