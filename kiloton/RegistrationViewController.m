@@ -15,6 +15,7 @@
 #import "UIView+RoundersCorners.h"
 
 @interface RegistrationViewController ()
+@property (strong) NSString * imageURL;
 @end
 
 static NSString * userModelName = @"UserModel";
@@ -144,6 +145,8 @@ static NSString * sprintModelName = @"SprintModel";
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     self.currentImage.image = image;
+    NSURL *url = [info valueForKey:UIImagePickerControllerReferenceURL];
+    self.imageURL = url.absoluteString;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
