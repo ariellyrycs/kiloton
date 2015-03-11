@@ -20,12 +20,17 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.comment.layer.borderColor = [[UIColor grayColor] CGColor];
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
     self.checkDate.minimumDate = self.getLastcheckDate;
     self.checkDate.maximumDate = self.getLimitcheckDate;
+}
+
+-(void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.scrollView layoutIfNeeded];
+    self.scrollView.contentSize = self.viewContent.bounds.size;
 }
 
 - (NSDate *)getLimitcheckDate {
@@ -69,7 +74,6 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     }
 }
 
-
 - (void) save {
     InteractionsModel *newInteracton = [NSEntityDescription insertNewObjectForEntityForName:iteractionsModelName inManagedObjectContext:self.context];
     newInteracton.registrationDate = [NSDate date];
@@ -83,6 +87,23 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (IBAction)selectAnImage:(id)sender {
+    UIImagePickerController *imagePickerController = [UIImagePickerController new];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.delegate = self;
+    [self presentViewController:imagePickerController animated:NO completion:nil];
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    self.currentImage.image = image;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
