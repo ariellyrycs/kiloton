@@ -15,7 +15,7 @@
 #import "UIView+RoundersCorners.h"
 
 @interface RegistrationViewController ()
-@property (strong) NSString * imageURL;
+@property (strong) UIImage * imageStatus;
 @end
 
 static NSString * userModelName = @"UserModel";
@@ -107,7 +107,12 @@ static NSString * sprintModelName = @"SprintModel";
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
+    NSData *pngImage =  [self convertImage:self.imageStatus];
+    NSString * imagePath = self.getImagePath;
+    [self saveImage:pngImage path:imagePath];
     [self.userModel addSprintsObject:newSprint];
+    newSprint.imageURL = imagePath;
+    NSLog(@"%@", newSprint.imageURL);
     NSError *error;
     if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
@@ -132,22 +137,42 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (IBAction)selectAnImage:(id)sender {
-    UIImagePickerController *imagePickerController = [UIImagePickerController new];
-    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    imagePickerController.delegate = self;
-    [self presentViewController:imagePickerController animated:NO completion:nil];
+    UIImagePickerController *picker = [UIImagePickerController new];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.currentImage.image = chosenImage;
+    self.imageStatus = chosenImage;
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    self.currentImage.image = image;
-    NSURL *url = [info valueForKey:UIImagePickerControllerReferenceURL];
-    self.imageURL = url.absoluteString;
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(NSString *)generateFileName {
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%lf", timeStamp];
+}
+
+-(NSString *)getImagePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
+    return [documentsPath stringByAppendingPathComponent: fileName];
+}
+
+-(NSData *)convertImage:(UIImage *)image {
+    return UIImagePNGRepresentation(image);
+}
+
+-(void)saveImage:(NSData *)pngData path:(NSString *) filePath{
+    [pngData writeToFile:filePath atomically:YES];
 }
 
 @end
