@@ -12,7 +12,7 @@
 #import "SprintModel.h"
 
 @interface CreateStatusViewController ()
-@property(strong) NSString *imageURL;
+@property(strong) UIImage *imageStatus;
 @end
 
 static NSString *iteractionsModelName = @"InteractionsModel";
@@ -81,7 +81,10 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
-    newInteracton.imageURL = self.imageURL;
+    NSData *pngImage =  [self convertImage:self.imageStatus];
+    NSString * imagePath = self.getImagePath;
+    [self saveImage:pngImage path:imagePath];
+    newInteracton.imageURL = imagePath;
     [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
     if(![self.context save:&error]) {
@@ -92,22 +95,43 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 }
 
 - (IBAction)selectAnImage:(id)sender {
-    UIImagePickerController *imagePickerController = [UIImagePickerController new];
-    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    imagePickerController.delegate = self;
-    [self presentViewController:imagePickerController animated:NO completion:nil];
+    UIImagePickerController *picker = [UIImagePickerController new];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    self.currentImage.image = image;
-    NSURL *url = [info valueForKey:UIImagePickerControllerReferenceURL];
-    self.imageURL = url.absoluteString;
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+    self.currentImage.image = chosenImage;
+    self.imageStatus = chosenImage;
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+-(NSString *)generateFileName {
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%lf", timeStamp];
+}
+
+-(NSString *)getImagePath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    NSString *fileName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
+    return [documentsPath stringByAppendingPathComponent: fileName];
+}
+
+-(NSData *)convertImage:(UIImage *)image {
+    return UIImagePNGRepresentation(image);
+}
+
+-(void)saveImage:(NSData *)pngData path:(NSString *) filePath{
+    [pngData writeToFile:filePath atomically:YES];
 }
 
 -(NSDate *) sumDayTo:(NSDate *)date numberOfDays: (int)number {

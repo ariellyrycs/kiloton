@@ -110,9 +110,8 @@ static NSString * sprintModelName = @"SprintModel";
     NSData *pngImage =  [self convertImage:self.imageStatus];
     NSString * imagePath = self.getImagePath;
     [self saveImage:pngImage path:imagePath];
-    [self.userModel addSprintsObject:newSprint];
     newSprint.imageURL = imagePath;
-    NSLog(@"%@", newSprint.imageURL);
+    [self.userModel addSprintsObject:newSprint];
     NSError *error;
     if(![self.context save:&error]) {
         NSLog(@"Error %@",error);
