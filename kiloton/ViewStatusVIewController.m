@@ -7,14 +7,12 @@
 //
 
 #import "ViewStatusVIewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation ViewStatusVIewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setInfo];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -25,16 +23,8 @@
     self.weight.text = [NSString stringWithFormat:@"Weight: %@", self.rowData.weight];
     self.date.text = [NSString stringWithFormat:@"Date: %@", [self dateFormat:self.rowData.date]];
     self.comments.text = self.rowData.comment;
-    NSURL *asssetURL = [NSURL URLWithString:self.rowData.imageURL];
-    if(asssetURL) {
-        ALAssetsLibrary *library = [ALAssetsLibrary new];
-        [library assetForURL:asssetURL resultBlock:^(ALAsset *asset) {
-            UIImage  *copyOfOriginalImage = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-            self.photoTaken.image = copyOfOriginalImage;
-        } failureBlock:^(NSError *error) {
-            NSLog(@"Error: it could load the image");
-        }];
-    }
+    NSData *pngData = [NSData dataWithContentsOfFile:self.rowData.imageURL];
+    self.photoTaken.image = [UIImage imageWithData:pngData];
 }
 
 -(NSString *) dateFormat:(NSDate *)date {
