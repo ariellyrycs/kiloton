@@ -136,11 +136,36 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (IBAction)selectAnImage:(id)sender {
-    UIImagePickerController *picker = [UIImagePickerController new];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:picker animated:YES completion:nil];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Select Image"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    [self addActionToAlert:alert title:@"Potho Library" sourceType: UIImagePickerControllerSourceTypePhotoLibrary];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self addActionToAlert:alert title:@"Camera" sourceType: (UIImagePickerControllerSourceType *) UIImagePickerControllerSourceTypeCamera];
+    }
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {}];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) addActionToAlert:(UIAlertController *)alert title:(NSString *)title sourceType:(UIImagePickerControllerSourceType *) sourceType{
+    UIAlertAction* sourceAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             UIImagePickerController *picker = [UIImagePickerController new];
+                                                             picker.delegate = self;
+                                                             picker.allowsEditing = YES;
+                                                             picker.sourceType = (UIImagePickerControllerSourceType)sourceType;
+                                                             [self presentViewController:picker animated:YES completion:nil];
+                                                         }];
+    [alert addAction:sourceAction];
+}
+
+- (NSString *)saveImage {
+    NSString * path = self.getImagePath;
+    NSData *pngImage =  [self convertImage:self.imageStatus];
+    [pngImage writeToFile:path atomically:YES];
+    return path;
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
