@@ -47,6 +47,8 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 - (IBAction)send:(id)sender {
     if([self.currentWeight.text intValue]) {
         [self save];
+    } else {
+        [self showMessageAlert:@"You have to insert your current weight" title:@"It couldn't save"];
     }
 }
 
@@ -124,5 +126,14 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 
 -(NSData *)convertImage:(UIImage *)image {
     return UIImagePNGRepresentation(image);
+}
+
+- (void) showMessageAlert:message title: title{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 @end
