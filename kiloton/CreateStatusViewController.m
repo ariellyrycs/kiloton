@@ -24,39 +24,14 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     self.comment.layer.borderColor = [[UIColor grayColor] CGColor];
     self.comment.layer.borderWidth = 1.0;
     self.comment.layer.cornerRadius = 8;
-    self.checkDate.minimumDate = [self sumDayTo:self.getLastcheckDate numberOfDays:1];
-    self.checkDate.maximumDate = self.getLimitcheckDate;
+    self.checkDate.minimumDate = self.currentSprint.currentDate;
+    self.checkDate.maximumDate = self.currentSprint.lastDate;
 }
 
 -(void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self.scrollView layoutIfNeeded];
     self.scrollView.contentSize = self.viewContent.bounds.size;
-}
-
-- (NSDate *)getLimitcheckDate {
-    return self.currentSprint.lastDate;
-}
-
-- (NSDate *)getLastcheckDate {
-    NSDate * lastCheck;
-    if(self.currentSprint.eachInteraction.count) {
-        InteractionsModel *lastInteraction = [self getLastInteraction:self.currentSprint];
-        lastCheck = lastInteraction.date;
-    } else {
-        lastCheck = self.currentSprint.currentDate;
-    }
-    return lastCheck;
-}
-
-- (InteractionsModel *) getLastInteraction:(SprintModel *)currentSprint {
-    NSArray * interaction = [[currentSprint.eachInteraction allObjects] mutableCopy];
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"registrationDate"
-                                                               ascending:NO];
-    NSArray *descriptors = [NSArray arrayWithObject:descriptor];
-    NSArray *reverseOrder = [interaction sortedArrayUsingDescriptors:descriptors];
-    return reverseOrder.firstObject;
-    
 }
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -149,9 +124,5 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 
 -(NSData *)convertImage:(UIImage *)image {
     return UIImagePNGRepresentation(image);
-}
-
--(NSDate *) sumDayTo:(NSDate *)date numberOfDays: (int)number {
-    return [date dateByAddingTimeInterval:60 * 60 * 24 * number];
 }
 @end
