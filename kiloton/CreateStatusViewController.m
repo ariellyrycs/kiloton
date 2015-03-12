@@ -45,7 +45,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 }
 
 - (IBAction)send:(id)sender {
-    if(![self.comment isEqual:@""] || [self.currentWeight.text intValue]) {
+    if([self.currentWeight.text intValue]) {
         [self save];
     }
 }
