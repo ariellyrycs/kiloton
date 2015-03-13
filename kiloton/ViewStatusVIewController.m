@@ -29,7 +29,7 @@
 -(UIImage *)getImage {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];
-    NSData *pngData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent: self.rowData.imageURL]];
+    NSData *pngData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent: self.rowData.image]];
     return [UIImage imageWithData:pngData];
 }
 

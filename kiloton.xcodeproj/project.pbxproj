@@ -10,7 +10,7 @@
 		A60CF8E11A9FF9D5003D26C1 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60CF8E01A9FF9D5003D26C1 /* RegistrationViewController.m */; };
 		A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */; };
 		A61AB2F41AB116E7002E3E65 /* SprintModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61AB2F31AB116E7002E3E65 /* SprintModel.m */; };
-		A61CC3AE1AB01DFE009729AB /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61CC3AD1AB01DFE009729AB /* InteractionsModel.m */; };
+		A61C37C91AB2C3430017238E /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61C37C81AB2C3430017238E /* InteractionsModel.m */; };
 		A61D70F31AAD627D0095AC1B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61D70F21AAD627D0095AC1B /* UserModel.m */; };
 		A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */; };
 		A623FF9A1AA76F300018E351 /* GraphWeightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A623FF991AA76F300018E351 /* GraphWeightModel.m */; };
@@ -50,8 +50,8 @@
 		A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStatusVIewController.m; sourceTree = "<group>"; };
 		A61AB2F21AB116E7002E3E65 /* SprintModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintModel.h; sourceTree = "<group>"; };
 		A61AB2F31AB116E7002E3E65 /* SprintModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprintModel.m; sourceTree = "<group>"; };
-		A61CC3AC1AB01DFE009729AB /* InteractionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionsModel.h; sourceTree = "<group>"; };
-		A61CC3AD1AB01DFE009729AB /* InteractionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionsModel.m; sourceTree = "<group>"; };
+		A61C37C71AB2C3430017238E /* InteractionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionsModel.h; sourceTree = "<group>"; };
+		A61C37C81AB2C3430017238E /* InteractionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionsModel.m; sourceTree = "<group>"; };
 		A61D70F11AAD627D0095AC1B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		A61D70F21AAD627D0095AC1B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A62327561AA7E27000B86654 /* UIView+ScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ScatterPlot.h"; sourceTree = "<group>"; };
@@ -119,10 +119,10 @@
 			isa = PBXGroup;
 			children = (
 				A66853D11A9E3EDA00463E06 /* KilotonModel.xcdatamodeld */,
+				A61C37C71AB2C3430017238E /* InteractionsModel.h */,
+				A61C37C81AB2C3430017238E /* InteractionsModel.m */,
 				A61AB2F21AB116E7002E3E65 /* SprintModel.h */,
 				A61AB2F31AB116E7002E3E65 /* SprintModel.m */,
-				A61CC3AC1AB01DFE009729AB /* InteractionsModel.h */,
-				A61CC3AD1AB01DFE009729AB /* InteractionsModel.m */,
 				A61D70F11AAD627D0095AC1B /* UserModel.h */,
 				A61D70F21AAD627D0095AC1B /* UserModel.m */,
 				A623FF981AA76F300018E351 /* GraphWeightModel.h */,
@@ -375,7 +375,7 @@
 			files = (
 				A662EF011A9EA05D00755425 /* HistoryTableViewController.m in Sources */,
 				A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */,
-				A61CC3AE1AB01DFE009729AB /* InteractionsModel.m in Sources */,
+				A61C37C91AB2C3430017238E /* InteractionsModel.m in Sources */,
 				A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */,
 				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
 				A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */,

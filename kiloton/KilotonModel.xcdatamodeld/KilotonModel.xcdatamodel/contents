@@ -3,7 +3,7 @@
     <entity name="InteractionsModel" representedClassName="InteractionsModel" syncable="YES">
         <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="registrationDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="interactionBelongs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SprintModel" inverseName="eachInteraction" inverseEntity="SprintModel" syncable="YES"/>

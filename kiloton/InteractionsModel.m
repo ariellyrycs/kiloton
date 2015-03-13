@@ -2,7 +2,7 @@
 //  InteractionsModel.m
 //  kiloton
 //
-//  Created by Ariel Robles on 3/10/15.
+//  Created by Ariel Robles on 3/13/15.
 //  Copyright (c) 2015 nearsoft. All rights reserved.
 //
 
@@ -14,9 +14,9 @@
 
 @dynamic comment;
 @dynamic date;
+@dynamic image;
 @dynamic registrationDate;
 @dynamic weight;
-@dynamic imageURL;
 @dynamic interactionBelongs;
 
 @end

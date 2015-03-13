@@ -62,7 +62,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     newInteracton.comment = self.comment.text;
     NSString *imageName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
     [self saveImageInPath: imageName];
-    newInteracton.imageURL = imageName;
+    newInteracton.image = imageName;
     [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
     if(![self.context save:&error]) {
