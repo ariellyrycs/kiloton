@@ -107,10 +107,9 @@ static NSString * sprintModelName = @"SprintModel";
     newSprint.lastDate = [self.finalDate date];
     newSprint.currentWeight = self.currentWeight.text;
     newSprint.weightObjective = self.weightToLose.text;
-    NSData *pngImage =  [self convertImage:self.imageStatus];
-    NSString * imagePath = self.getImagePath;
-    [self saveImage:pngImage path:imagePath];
-    newSprint.imageURL = imagePath;
+    NSString *imageName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
+    [self saveImageInPath: imageName];
+    newSprint.imageURL = imageName;
     [self.userModel addSprintsObject:newSprint];
     NSError *error;
     if(![self.context save:&error]) {
@@ -161,11 +160,13 @@ static NSString * sprintModelName = @"SprintModel";
     [alert addAction:sourceAction];
 }
 
-- (NSString *)saveImage {
-    NSString * path = self.getImagePath;
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)saveImageInPath:(NSString *) path {
     NSData *pngImage =  [self convertImage:self.imageStatus];
     [pngImage writeToFile:path atomically:YES];
-    return path;
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -175,28 +176,19 @@ static NSString * sprintModelName = @"SprintModel";
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(NSString *)generateFileName {
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     return [NSString stringWithFormat:@"%lf", timeStamp];
 }
 
--(NSString *)getImagePath {
+-(NSString *)getImagePath:(NSString *)imageName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
-    return [documentsPath stringByAppendingPathComponent: fileName];
+    return [documentsPath stringByAppendingPathComponent: imageName];
 }
 
 -(NSData *)convertImage:(UIImage *)image {
     return UIImagePNGRepresentation(image);
-}
-
--(void)saveImage:(NSData *)pngData path:(NSString *) filePath{
-    [pngData writeToFile:filePath atomically:YES];
 }
 
 @end
