@@ -109,7 +109,7 @@ static NSString * sprintModelName = @"SprintModel";
     newSprint.weightObjective = self.weightToLose.text;
     NSString *imageName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
     [self saveImageInPath: imageName];
-    newSprint.imageURL = imageName;
+    newSprint.image = imageName;
     [self.userModel addSprintsObject:newSprint];
     NSError *error;
     if(![self.context save:&error]) {

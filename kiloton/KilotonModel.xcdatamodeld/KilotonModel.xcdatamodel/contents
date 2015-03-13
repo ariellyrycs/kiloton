@@ -11,7 +11,7 @@
     <entity name="SprintModel" representedClassName="SprintModel" syncable="YES">
         <attribute name="currentDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="currentWeight" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="weightObjective" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="eachInteraction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InteractionsModel" inverseName="interactionBelongs" inverseEntity="InteractionsModel" syncable="YES"/>
@@ -26,7 +26,7 @@
     </entity>
     <elements>
         <element name="InteractionsModel" positionX="-54" positionY="36" width="128" height="135"/>
-        <element name="SprintModel" positionX="-56" positionY="-108" width="128" height="148"/>
+        <element name="SprintModel" positionX="-56" positionY="-108" width="128" height="150"/>
         <element name="UserModel" positionX="-263" positionY="-36" width="128" height="120"/>
     </elements>
 </model>

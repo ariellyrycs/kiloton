@@ -2,7 +2,7 @@
 //  SprintModel.m
 //  kiloton
 //
-//  Created by Ariel Robles on 3/11/15.
+//  Created by Ariel Robles on 3/13/15.
 //  Copyright (c) 2015 nearsoft. All rights reserved.
 //
 
@@ -15,7 +15,7 @@
 
 @dynamic currentDate;
 @dynamic currentWeight;
-@dynamic imageURL;
+@dynamic image;
 @dynamic lastDate;
 @dynamic weightObjective;
 @dynamic eachInteraction;
