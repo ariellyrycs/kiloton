@@ -23,8 +23,14 @@
     self.weight.text = [NSString stringWithFormat:@"Weight: %@", self.rowData.weight];
     self.date.text = [NSString stringWithFormat:@"Date: %@", [self dateFormat:self.rowData.date]];
     self.comments.text = self.rowData.comment;
-    NSData *pngData = [NSData dataWithContentsOfFile:self.rowData.imageURL];
-    self.photoTaken.image = [UIImage imageWithData:pngData];
+    self.photoTaken.image = self.getImage;
+}
+
+-(UIImage *)getImage {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    NSData *pngData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent: self.rowData.imageURL]];
+    return [UIImage imageWithData:pngData];
 }
 
 -(NSString *) dateFormat:(NSDate *)date {

@@ -13,6 +13,7 @@
 
 @interface CreateStatusViewController ()
 @property(strong) UIImage *imageStatus;
+
 @end
 
 static NSString *iteractionsModelName = @"InteractionsModel";
@@ -45,6 +46,7 @@ static NSString *iteractionsModelName = @"InteractionsModel";
 }
 
 - (IBAction)send:(id)sender {
+    
     if([self.currentWeight.text intValue]) {
         [self save];
     } else {
@@ -58,7 +60,9 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     newInteracton.date = [self.checkDate date];
     newInteracton.weight = self.currentWeight.text;
     newInteracton.comment = self.comment.text;
-    newInteracton.imageURL = self.saveImage;
+    NSString *imageName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
+    [self saveImageInPath: imageName];
+    newInteracton.imageURL = imageName;
     [self.currentSprint addEachInteractionObject:newInteracton];
     NSError *error;
     if(![self.context save:&error]) {
@@ -98,11 +102,9 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (NSString *)saveImage {
-    NSString * path = self.getImagePath;
+- (void)saveImageInPath:(NSString *) path {
     NSData *pngImage =  [self convertImage:self.imageStatus];
     [pngImage writeToFile:path atomically:YES];
-    return path;
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -117,11 +119,10 @@ static NSString *iteractionsModelName = @"InteractionsModel";
     return [NSString stringWithFormat:@"%lf", timeStamp];
 }
 
--(NSString *)getImagePath {
+-(NSString *)getImagePath:(NSString *)imageName {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];
-    NSString *fileName = [NSString stringWithFormat: @"%@.png", self.generateFileName];
-    return [documentsPath stringByAppendingPathComponent: fileName];
+    return [documentsPath stringByAppendingPathComponent: imageName];
 }
 
 -(NSData *)convertImage:(UIImage *)image {
