@@ -13,6 +13,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 #import "HistoryTableViewController.h"
+#import "UserWebserviceModel.h"
 
 
 @interface LoginViewController () <FBLoginViewDelegate>
@@ -57,12 +58,22 @@ static NSString * sprintModelName = @"SprintModel";
 -(void)getInfo {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
+            UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
             if(![self checkUserExistenceBy:user.objectID]) {
                 self.userModel = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
                 self.userModel.name = user[@"name"];
                 self.userModel.accessToken = self.getToken;
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
+                [UserWebservice addUser:self.userModel];
+            } else {
+                [UserWebservice getUser:self.userModel.idProfile
+                       withSuccessBlock:^(NSMutableArray* responseObject){
+                           [self saveUserChanges:responseObject];
+                       }
+                        andFailureBlock:^(NSError * error){
+                            NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
+                        }];
             }
             NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
             if(sprints.count) {
@@ -77,6 +88,10 @@ static NSString * sprintModelName = @"SprintModel";
             }
         }
     }];
+}
+
+- (void)saveUserChanges:(NSMutableArray*) responseObject {
+    NSLog(@"%@",responseObject);
 }
 
 - (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier{
