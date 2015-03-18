@@ -29,8 +29,17 @@ static NSString *hostName = @"http://localhost:4000";
 
 - (void)getUser:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSLog(@"%@",[NSString stringWithFormat:@"%@/user/%@", hostName, idProfile]);
     [manager GET:[NSString stringWithFormat:@"%@/user/%@", hostName, idProfile] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+
+- (void)checkUserExistance:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager GET:[NSString stringWithFormat:@"%@/user/%@/exists", hostName, idProfile] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);

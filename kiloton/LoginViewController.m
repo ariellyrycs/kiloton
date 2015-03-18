@@ -58,15 +58,15 @@ static NSString * sprintModelName = @"SprintModel";
 -(void)getInfo {
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error) {
         if (!error) {
-            UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
             if(![self checkUserExistenceBy:user.objectID]) {
                 self.userModel = [NSEntityDescription insertNewObjectForEntityForName:userModelName inManagedObjectContext:self.context];
                 self.userModel.name = user[@"name"];
                 self.userModel.accessToken = self.getToken;
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
-                [UserWebservice addUser:self.userModel];
+                [self syncWithWebService];
             } else {
+                UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
                 [UserWebservice getUser:self.userModel.idProfile
                        withSuccessBlock:^(NSMutableArray* responseObject){
                            [self saveUserChanges:responseObject];
@@ -88,6 +88,20 @@ static NSString * sprintModelName = @"SprintModel";
             }
         }
     }];
+}
+
+- (void)syncWithWebService {
+    UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
+    [UserWebservice checkUserExistance: self.userModel.idProfile
+                      withSuccessBlock:^(NSMutableArray* responseObject){
+                          if(responseObject[@"exists"] == 1){
+                              [UserWebservice addUser:self.userModel];
+                          }
+                      }
+                       andFailureBlock:^(NSError * error){
+                           NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
+                       }];
+    
 }
 
 - (void)saveUserChanges:(NSMutableArray*) responseObject {
