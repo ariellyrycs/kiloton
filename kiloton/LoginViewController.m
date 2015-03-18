@@ -93,9 +93,11 @@ static NSString * sprintModelName = @"SprintModel";
 - (void)syncWithWebService {
     UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
     [UserWebservice checkUserExistance: self.userModel.idProfile
-                      withSuccessBlock:^(NSMutableArray* responseObject){
-                          if(responseObject[@"exists"] == 1){
+                      withSuccessBlock:^(NSMutableDictionary* responseObject) {
+                          if([responseObject[@"exists"]  isEqual: @0]) {
                               [UserWebservice addUser:self.userModel];
+                          } else {
+                              [UserWebservice updateUser:self.userModel.idProfile updateData:self.userModel];
                           }
                       }
                        andFailureBlock:^(NSError * error){

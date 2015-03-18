@@ -45,4 +45,18 @@ static NSString *hostName = @"http://localhost:4000";
         failure(error);
     }];
 }
+
+- (void)updateUser:(NSString *)idProfile updateData:(UserModel *) userData {
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: userData.name, @"name",
+                            userData.accessToken, @"accessToken",
+                            nil];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager PUT:[NSString stringWithFormat:@"%@/user/%@", hostName, idProfile]
+       parameters:params
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              NSLog(@"Updated successfully");
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Error: %@", error);
+          }];
+}
 @end

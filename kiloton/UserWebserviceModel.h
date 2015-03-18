@@ -12,4 +12,5 @@
 - (void)addUser:(UserModel *)data;
 - (void)getUser:(NSString *)email withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure;
 - (void)checkUserExistance:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure;
+- (void)updateUser:(NSString *)idProfile updateData:(UserModel *) userData;
 @end
