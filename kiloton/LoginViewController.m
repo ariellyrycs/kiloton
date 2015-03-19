@@ -13,11 +13,13 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "UIView+RoundersCorners.h"
 #import "HistoryTableViewController.h"
+#import "UserWebserviceModel.h"
 
 
 @interface LoginViewController () <FBLoginViewDelegate>
 @property (strong) NSManagedObjectContext *context;
 @property (strong) UserModel *userModel;
+@property (strong) UserWebserviceModel *UserWebservice;
 - (void)getInfo;
 @end
 
@@ -30,6 +32,7 @@ static NSString * sprintModelName = @"SprintModel";
     [super viewDidLoad];
     self.profileStoryboard = [UIStoryboard storyboardWithName:@"UserProfile" bundle:nil];
     self.context = self.managedObjectContext;
+    self.UserWebservice = [UserWebserviceModel new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +67,11 @@ static NSString * sprintModelName = @"SprintModel";
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
             }
+            if(self.userModel.idService) {
+                [self syncWithApplication];
+            } else {
+                [self syncWithWebService];
+            }
             NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
             if(sprints.count) {
                 self.userModel.active = [NSNumber numberWithBool:YES];
@@ -77,6 +85,71 @@ static NSString * sprintModelName = @"SprintModel";
             }
         }
     }];
+}
+
+- (void)syncWithWebService {
+    [self.UserWebservice checkUserExistance: self.userModel.idProfile
+                           withSuccessBlock:^(NSMutableDictionary* responseObject) {
+                               if([responseObject[@"exists"]  isEqual: @0]) {
+                                   [self saveUsersInWebservice];
+                               } else {
+                                   [self updateUsersInWebservice];
+                               }
+                           }
+                            andFailureBlock:^(NSError * error){
+                                NSLog(@"It couldn't connect with kiloton-webservice, please check your connection: %@, %@", error, error.localizedDescription);
+                            }];
+}
+
+-(void) syncWithApplication {
+    [self.UserWebservice getUser:self.userModel.idService
+                withSuccessBlock:^(NSMutableDictionary* responseObject){
+                    [self saveUserChanges:responseObject];
+                }
+                 andFailureBlock:^(NSError * error){
+                     NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
+                 }];
+}
+
+- (void) saveUsersInWebservice {
+    __weak typeof(self) weakSelf = self;
+    [self.UserWebservice addUser:self.userModel
+                withSuccessBlock:^(NSMutableDictionary *responseObject) {
+                    [weakSelf saveWebServiceUserId:responseObject[@"user"][@"_id"]];
+                }
+                 andFailureBlock:^(NSError * error) {
+                     NSLog(@"Error:%@, %@ ",error, error.localizedDescription);
+                 }];
+}
+
+- (void) updateUsersInWebservice {
+    __weak typeof(self) weakSelf = self;
+    [self.UserWebservice updateUser:self.userModel.idProfile
+                         updateData:self.userModel
+                withSuccessBlock:^(NSMutableDictionary *responseObject) {
+                    [weakSelf saveWebServiceUserId:responseObject[@"user"][@"_id"]];
+                    NSLog(@"Updated successfully");
+                }
+                 andFailureBlock:^(NSError * error) {
+                     NSLog(@"Error:%@, %@ ",error, error.localizedDescription);
+                 }];
+}
+
+- (void) saveWebServiceUserId:(NSString *)idUser {
+    self.userModel.idService = idUser;
+    NSError *error;
+    if(![self.context save:&error]) {
+        NSLog(@"Error %@",error);
+    }
+}
+
+- (void)saveUserChanges:(NSMutableDictionary*) responseObject {
+    self.userModel.accessToken = responseObject[@"user"][@"accessToken"];
+    self.userModel.name = responseObject[@"user"][@"name"];
+    NSError *error;
+    if(![self.context save:&error]) {
+        NSLog(@"Error %@",error);
+    }
 }
 
 - (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier{

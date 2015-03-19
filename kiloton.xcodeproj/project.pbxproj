@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		A60CF8E11A9FF9D5003D26C1 /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A60CF8E01A9FF9D5003D26C1 /* RegistrationViewController.m */; };
 		A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */; };
+		A61B8B601ABA5C670051E3BB /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61B8B5F1ABA5C670051E3BB /* UserModel.m */; };
 		A61C37C91AB2C3430017238E /* InteractionsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61C37C81AB2C3430017238E /* InteractionsModel.m */; };
 		A61C37CC1AB2C5BD0017238E /* SprintModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61C37CB1AB2C5BD0017238E /* SprintModel.m */; };
-		A61D70F31AAD627D0095AC1B /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A61D70F21AAD627D0095AC1B /* UserModel.m */; };
 		A62327581AA7E27000B86654 /* UIView+ScatterPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */; };
 		A623FF9A1AA76F300018E351 /* GraphWeightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A623FF991AA76F300018E351 /* GraphWeightModel.m */; };
+		A62AD9291AB8D0DA005C5B48 /* UserWebserviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A62AD9281AB8D0DA005C5B48 /* UserWebserviceModel.m */; };
 		A662EEF01A9E600F00755425 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEEF1A9E600F00755425 /* StatusViewController.m */; };
 		A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF21A9E75E000755425 /* CreateStatusViewController.m */; };
 		A662EEFA1A9E97EA00755425 /* HistoryCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A662EEF81A9E97EA00755425 /* HistoryCellTableViewCell.m */; };
@@ -40,6 +41,13 @@
 			remoteGlobalIDString = A68CDA571A9B927E00724D12;
 			remoteInfo = kiloton;
 		};
+		A6F96EB81AB3924200517760 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A68CDA501A9B927E00724D12 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6F96E9B1AB3924200517760;
+			remoteInfo = "test-api-kiloton";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -48,16 +56,18 @@
 		A60CF8E01A9FF9D5003D26C1 /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		A618A3BD1AAEABD4001053D6 /* ViewStatusVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewStatusVIewController.h; sourceTree = "<group>"; };
 		A618A3BE1AAEABD4001053D6 /* ViewStatusVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewStatusVIewController.m; sourceTree = "<group>"; };
+		A61B8B5E1ABA5C670051E3BB /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		A61B8B5F1ABA5C670051E3BB /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A61C37C71AB2C3430017238E /* InteractionsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractionsModel.h; sourceTree = "<group>"; };
 		A61C37C81AB2C3430017238E /* InteractionsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractionsModel.m; sourceTree = "<group>"; };
 		A61C37CA1AB2C5BD0017238E /* SprintModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SprintModel.h; sourceTree = "<group>"; };
 		A61C37CB1AB2C5BD0017238E /* SprintModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SprintModel.m; sourceTree = "<group>"; };
-		A61D70F11AAD627D0095AC1B /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		A61D70F21AAD627D0095AC1B /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A62327561AA7E27000B86654 /* UIView+ScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ScatterPlot.h"; sourceTree = "<group>"; };
 		A62327571AA7E27000B86654 /* UIView+ScatterPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ScatterPlot.m"; sourceTree = "<group>"; };
 		A623FF981AA76F300018E351 /* GraphWeightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphWeightModel.h; sourceTree = "<group>"; };
 		A623FF991AA76F300018E351 /* GraphWeightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphWeightModel.m; sourceTree = "<group>"; };
+		A62AD9271AB8D0DA005C5B48 /* UserWebserviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserWebserviceModel.h; sourceTree = "<group>"; };
+		A62AD9281AB8D0DA005C5B48 /* UserWebserviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserWebserviceModel.m; sourceTree = "<group>"; };
 		A662EEEE1A9E600F00755425 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
 		A662EEEF1A9E600F00755425 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		A662EEF11A9E75E000755425 /* CreateStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStatusViewController.h; sourceTree = "<group>"; };
@@ -84,6 +94,8 @@
 		A68CDA741A9B927E00724D12 /* kilotonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kilotonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68CDA791A9B927E00724D12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68CDA7A1A9B927E00724D12 /* kilotonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kilotonTests.m; sourceTree = "<group>"; };
+		A6F96E9C1AB3924200517760 /* test-api-kiloton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "test-api-kiloton.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "test-api-kilotonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D133CF11182A05AE0F5B55BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB63F5910721A1FB9DFF1C8A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +110,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A68CDA711A9B927E00724D12 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F96E991AB3924200517760 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F96EB41AB3924200517760 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -119,14 +145,16 @@
 			isa = PBXGroup;
 			children = (
 				A66853D11A9E3EDA00463E06 /* KilotonModel.xcdatamodeld */,
+				A61B8B5E1ABA5C670051E3BB /* UserModel.h */,
+				A61B8B5F1ABA5C670051E3BB /* UserModel.m */,
 				A61C37CA1AB2C5BD0017238E /* SprintModel.h */,
 				A61C37CB1AB2C5BD0017238E /* SprintModel.m */,
 				A61C37C71AB2C3430017238E /* InteractionsModel.h */,
 				A61C37C81AB2C3430017238E /* InteractionsModel.m */,
-				A61D70F11AAD627D0095AC1B /* UserModel.h */,
-				A61D70F21AAD627D0095AC1B /* UserModel.m */,
 				A623FF981AA76F300018E351 /* GraphWeightModel.h */,
 				A623FF991AA76F300018E351 /* GraphWeightModel.m */,
+				A62AD9271AB8D0DA005C5B48 /* UserWebserviceModel.h */,
+				A62AD9281AB8D0DA005C5B48 /* UserWebserviceModel.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -183,6 +211,8 @@
 			children = (
 				A68CDA581A9B927E00724D12 /* kiloton.app */,
 				A68CDA741A9B927E00724D12 /* kilotonTests.xctest */,
+				A6F96E9C1AB3924200517760 /* test-api-kiloton.app */,
+				A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -276,6 +306,41 @@
 			productReference = A68CDA741A9B927E00724D12 /* kilotonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A6F96E9B1AB3924200517760 /* test-api-kiloton */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6F96EC31AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kiloton" */;
+			buildPhases = (
+				A6F96E981AB3924200517760 /* Sources */,
+				A6F96E991AB3924200517760 /* Frameworks */,
+				A6F96E9A1AB3924200517760 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "test-api-kiloton";
+			productName = "test-api-kiloton";
+			productReference = A6F96E9C1AB3924200517760 /* test-api-kiloton.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A6F96EB61AB3924200517760 /* test-api-kilotonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A6F96EC41AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kilotonTests" */;
+			buildPhases = (
+				A6F96EB31AB3924200517760 /* Sources */,
+				A6F96EB41AB3924200517760 /* Frameworks */,
+				A6F96EB51AB3924200517760 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A6F96EB91AB3924200517760 /* PBXTargetDependency */,
+			);
+			name = "test-api-kilotonTests";
+			productName = "test-api-kilotonTests";
+			productReference = A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -291,6 +356,13 @@
 					A68CDA731A9B927E00724D12 = {
 						CreatedOnToolsVersion = 6.1;
 						TestTargetID = A68CDA571A9B927E00724D12;
+					};
+					A6F96E9B1AB3924200517760 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					A6F96EB61AB3924200517760 = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = A6F96E9B1AB3924200517760;
 					};
 				};
 			};
@@ -309,6 +381,8 @@
 			targets = (
 				A68CDA571A9B927E00724D12 /* kiloton */,
 				A68CDA731A9B927E00724D12 /* kilotonTests */,
+				A6F96E9B1AB3924200517760 /* test-api-kiloton */,
+				A6F96EB61AB3924200517760 /* test-api-kilotonTests */,
 			);
 		};
 /* End PBXProject section */
@@ -327,6 +401,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A68CDA721A9B927E00724D12 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F96E9A1AB3924200517760 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F96EB51AB3924200517760 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -378,15 +466,16 @@
 				A61C37C91AB2C3430017238E /* InteractionsModel.m in Sources */,
 				A618A3BF1AAEABD4001053D6 /* ViewStatusVIewController.m in Sources */,
 				A662EF0A1A9EA9EA00755425 /* UIView+RoundersCorners.m in Sources */,
+				A61B8B601ABA5C670051E3BB /* UserModel.m in Sources */,
 				A68CDA611A9B927E00724D12 /* AppDelegate.m in Sources */,
 				A662EEF31A9E75E000755425 /* CreateStatusViewController.m in Sources */,
 				A662EEF01A9E600F00755425 /* StatusViewController.m in Sources */,
 				A66853D31A9E3EDA00463E06 /* KilotonModel.xcdatamodeld in Sources */,
+				A62AD9291AB8D0DA005C5B48 /* UserWebserviceModel.m in Sources */,
 				A61C37CC1AB2C5BD0017238E /* SprintModel.m in Sources */,
 				A623FF9A1AA76F300018E351 /* GraphWeightModel.m in Sources */,
 				A68CDA671A9B927E00724D12 /* LoginViewController.m in Sources */,
 				A68CDA5E1A9B927E00724D12 /* main.m in Sources */,
-				A61D70F31AAD627D0095AC1B /* UserModel.m in Sources */,
 				A60CF8E11A9FF9D5003D26C1 /* RegistrationViewController.m in Sources */,
 				A662EEFA1A9E97EA00755425 /* HistoryCellTableViewCell.m in Sources */,
 			);
@@ -400,6 +489,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A6F96E981AB3924200517760 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6F96EB31AB3924200517760 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -407,6 +510,11 @@
 			isa = PBXTargetDependency;
 			target = A68CDA571A9B927E00724D12 /* kiloton */;
 			targetProxy = A68CDA751A9B927E00724D12 /* PBXContainerItemProxy */;
+		};
+		A6F96EB91AB3924200517760 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6F96E9B1AB3924200517760 /* test-api-kiloton */;
+			targetProxy = A6F96EB81AB3924200517760 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -562,6 +670,64 @@
 			};
 			name = Release;
 		};
+		A6F96EBF1AB3924200517760 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "test-api-kiloton/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A6F96EC01AB3924200517760 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "test-api-kiloton/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A6F96EC11AB3924200517760 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "test-api-kilotonTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test-api-kiloton.app/test-api-kiloton";
+			};
+			name = Debug;
+		};
+		A6F96EC21AB3924200517760 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "test-api-kilotonTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test-api-kiloton.app/test-api-kiloton";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -588,6 +754,24 @@
 			buildConfigurations = (
 				A68CDA821A9B927E00724D12 /* Debug */,
 				A68CDA831A9B927E00724D12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A6F96EC31AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kiloton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6F96EBF1AB3924200517760 /* Debug */,
+				A6F96EC01AB3924200517760 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A6F96EC41AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kilotonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A6F96EC11AB3924200517760 /* Debug */,
+				A6F96EC21AB3924200517760 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
