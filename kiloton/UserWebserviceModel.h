@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
 @interface UserWebserviceModel : NSObject
-- (void)addUser:(UserModel *)data;
+- (void)addUser:(UserModel *) data withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure;
 - (void)getUser:(NSString *)email withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure;
 - (void)checkUserExistance:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure;
 - (void)updateUser:(NSString *)idProfile updateData:(UserModel *) userData;

@@ -12,7 +12,7 @@
 static NSString *hostName = @"http://localhost:4000";
 @implementation UserWebserviceModel
 
--(void)addUser:(UserModel *) data {
+- (void)addUser:(UserModel *) data withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: data.name, @"name",
                             data.accessToken, @"accessToken",
@@ -21,9 +21,9 @@ static NSString *hostName = @"http://localhost:4000";
     [manager POST:[NSString stringWithFormat:@"%@/user",hostName]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        failure(error);
     }];
 }
 

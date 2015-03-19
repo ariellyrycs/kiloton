@@ -19,6 +19,7 @@
 @interface LoginViewController () <FBLoginViewDelegate>
 @property (strong) NSManagedObjectContext *context;
 @property (strong) UserModel *userModel;
+@property (strong) UserWebserviceModel *UserWebservice;
 - (void)getInfo;
 @end
 
@@ -31,6 +32,7 @@ static NSString * sprintModelName = @"SprintModel";
     [super viewDidLoad];
     self.profileStoryboard = [UIStoryboard storyboardWithName:@"UserProfile" bundle:nil];
     self.context = self.managedObjectContext;
+    self.UserWebservice = [UserWebserviceModel new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,9 +66,12 @@ static NSString * sprintModelName = @"SprintModel";
                 self.userModel.accessToken = self.getToken;
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
-                [self syncWithWebService];
-            } else {
+            }
+            NSLog(@"%@", self.userModel.idService);
+            if(self.userModel.idService) {
                 [self syncWithApplication];
+            } else {
+                [self syncWithWebService];
             }
             NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
             if(sprints.count) {
@@ -84,30 +89,39 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (void)syncWithWebService {
-    UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
-    [UserWebservice checkUserExistance: self.userModel.idProfile
-                      withSuccessBlock:^(NSMutableDictionary* responseObject) {
-                          if([responseObject[@"exists"]  isEqual: @0]) {
-                              [UserWebservice addUser:self.userModel];
-                          } else {
-                              [UserWebservice updateUser:self.userModel.idProfile updateData:self.userModel];
-                          }
-                      }
-                       andFailureBlock:^(NSError * error){
-                           NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
-                       }];
+    [self.UserWebservice checkUserExistance: self.userModel.idProfile
+                           withSuccessBlock:^(NSMutableDictionary* responseObject) {
+                               if([responseObject[@"exists"]  isEqual: @0]) {
+                                   [self saveUsersInWebservice];
+                               } else {
+                                   [self.UserWebservice updateUser:self.userModel.idProfile updateData:self.userModel];
+                               }
+                           }
+                            andFailureBlock:^(NSError * error){
+                                NSLog(@"It couldn't connect with kiloton-webservice, please check your connection: %@, %@", error, error.localizedDescription);
+                            }];
     
 }
 
 -(void) syncWithApplication {
-    UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
-    [UserWebservice getUser:self.userModel.idProfile
-           withSuccessBlock:^(NSMutableArray* responseObject){
-               [self saveUserChanges:responseObject];
-           }
-            andFailureBlock:^(NSError * error){
-                NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
-            }];
+    [self.UserWebservice getUser:self.userModel.idProfile
+                withSuccessBlock:^(NSMutableArray* responseObject){
+                    [self saveUserChanges:responseObject];
+                }
+                 andFailureBlock:^(NSError * error){
+                     NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
+                 }];
+}
+
+- (void) saveUsersInWebservice {
+    [self.UserWebservice addUser:self.userModel
+                withSuccessBlock:^(NSMutableArray* responseObject){
+                    NSLog(@"%@", responseObject);
+                    
+                }
+                 andFailureBlock:^(NSError * error){
+                     NSLog(@"Error:%@, %@ ",error, error.localizedDescription);
+                 }];
 }
 
 - (void)saveUserChanges:(NSMutableArray*) responseObject {
