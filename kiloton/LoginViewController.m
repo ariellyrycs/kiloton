@@ -103,7 +103,7 @@ static NSString * sprintModelName = @"SprintModel";
 
 -(void) syncWithApplication {
     [self.UserWebservice getUser:self.userModel.idService
-                withSuccessBlock:^(NSMutableArray* responseObject){
+                withSuccessBlock:^(NSMutableDictionary* responseObject){
                     [self saveUserChanges:responseObject];
                 }
                  andFailureBlock:^(NSError * error){
@@ -143,8 +143,13 @@ static NSString * sprintModelName = @"SprintModel";
     }
 }
 
-- (void)saveUserChanges:(NSMutableArray*) responseObject {
-    NSLog(@"%@",responseObject);
+- (void)saveUserChanges:(NSMutableDictionary*) responseObject {
+    self.userModel.accessToken = responseObject[@"user"][@"accessToken"];
+    self.userModel.name = responseObject[@"user"][@"name"];
+    NSError *error;
+    if(![self.context save:&error]) {
+        NSLog(@"Error %@",error);
+    }
 }
 
 - (void)changeStoryboard:(NSString *) storyboardName identifier:(NSString *) identifier{
