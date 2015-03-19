@@ -27,9 +27,9 @@ static NSString *hostName = @"http://localhost:4000";
     }];
 }
 
-- (void)getUser:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
+- (void)getUser:(NSString *)idUser withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:[NSString stringWithFormat:@"%@/user/%@", hostName, idProfile] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@/user/%@", hostName, idUser] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
@@ -37,26 +37,26 @@ static NSString *hostName = @"http://localhost:4000";
 }
 
 
-- (void)checkUserExistance:(NSString *)idProfile withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
+- (void)checkUserExistance:(NSString *)idUser withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager GET:[NSString stringWithFormat:@"%@/user/%@/exists", hostName, idProfile] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@/user/%@/exists", hostName, idUser] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
     }];
 }
 
-- (void)updateUser:(NSString *)idProfile updateData:(UserModel *) userData {
+- (void)updateUser:(NSString *)idProfile updateData:(UserModel *) userData withSuccessBlock:(void(^)(id))success andFailureBlock:(void(^)(NSError *))failure {
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: userData.name, @"name",
                             userData.accessToken, @"accessToken",
                             nil];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager PUT:[NSString stringWithFormat:@"%@/user/%@", hostName, idProfile]
+    [manager PUT:[NSString stringWithFormat:@"%@/user?profile=%@", hostName, idProfile]
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              NSLog(@"Updated successfully");
+              success(responseObject);
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@", error);
+              failure(error);
           }];
 }
 @end

@@ -67,7 +67,6 @@ static NSString * sprintModelName = @"SprintModel";
                 self.userModel.idProfile = user.objectID;
                 self.userModel.active = [NSNumber numberWithBool:NO];
             }
-            NSLog(@"%@", self.userModel.idService);
             if(self.userModel.idService) {
                 [self syncWithApplication];
             } else {
@@ -94,17 +93,16 @@ static NSString * sprintModelName = @"SprintModel";
                                if([responseObject[@"exists"]  isEqual: @0]) {
                                    [self saveUsersInWebservice];
                                } else {
-                                   [self.UserWebservice updateUser:self.userModel.idProfile updateData:self.userModel];
+                                   [self updateUsersInWebservice];
                                }
                            }
                             andFailureBlock:^(NSError * error){
                                 NSLog(@"It couldn't connect with kiloton-webservice, please check your connection: %@, %@", error, error.localizedDescription);
                             }];
-    
 }
 
 -(void) syncWithApplication {
-    [self.UserWebservice getUser:self.userModel.idProfile
+    [self.UserWebservice getUser:self.userModel.idService
                 withSuccessBlock:^(NSMutableArray* responseObject){
                     [self saveUserChanges:responseObject];
                 }
@@ -114,14 +112,35 @@ static NSString * sprintModelName = @"SprintModel";
 }
 
 - (void) saveUsersInWebservice {
+    __weak typeof(self) weakSelf = self;
     [self.UserWebservice addUser:self.userModel
-                withSuccessBlock:^(NSMutableArray* responseObject){
-                    NSLog(@"%@", responseObject);
-                    
+                withSuccessBlock:^(NSMutableDictionary *responseObject) {
+                    [weakSelf saveWebServiceUserId:responseObject[@"user"][@"_id"]];
                 }
-                 andFailureBlock:^(NSError * error){
+                 andFailureBlock:^(NSError * error) {
                      NSLog(@"Error:%@, %@ ",error, error.localizedDescription);
                  }];
+}
+
+- (void) updateUsersInWebservice {
+    __weak typeof(self) weakSelf = self;
+    [self.UserWebservice updateUser:self.userModel.idProfile
+                         updateData:self.userModel
+                withSuccessBlock:^(NSMutableDictionary *responseObject) {
+                    [weakSelf saveWebServiceUserId:responseObject[@"user"][@"_id"]];
+                    NSLog(@"Updated successfully");
+                }
+                 andFailureBlock:^(NSError * error) {
+                     NSLog(@"Error:%@, %@ ",error, error.localizedDescription);
+                 }];
+}
+
+- (void) saveWebServiceUserId:(NSString *)idUser {
+    self.userModel.idService = idUser;
+    NSError *error;
+    if(![self.context save:&error]) {
+        NSLog(@"Error %@",error);
+    }
 }
 
 - (void)saveUserChanges:(NSMutableArray*) responseObject {
