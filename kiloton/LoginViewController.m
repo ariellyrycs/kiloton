@@ -66,14 +66,7 @@ static NSString * sprintModelName = @"SprintModel";
                 self.userModel.active = [NSNumber numberWithBool:NO];
                 [self syncWithWebService];
             } else {
-                UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
-                [UserWebservice getUser:self.userModel.idProfile
-                       withSuccessBlock:^(NSMutableArray* responseObject){
-                           [self saveUserChanges:responseObject];
-                       }
-                        andFailureBlock:^(NSError * error){
-                            NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
-                        }];
+                [self syncWithApplication];
             }
             NSArray * sprints = [[self.userModel.sprints allObjects] mutableCopy];
             if(sprints.count) {
@@ -104,6 +97,17 @@ static NSString * sprintModelName = @"SprintModel";
                            NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
                        }];
     
+}
+
+-(void) syncWithApplication {
+    UserWebserviceModel *UserWebservice = [UserWebserviceModel new];
+    [UserWebservice getUser:self.userModel.idProfile
+           withSuccessBlock:^(NSMutableArray* responseObject){
+               [self saveUserChanges:responseObject];
+           }
+            andFailureBlock:^(NSError * error){
+                NSLog(@"It couldn't connect with kiloton-webservice, please check your connection");
+            }];
 }
 
 - (void)saveUserChanges:(NSMutableArray*) responseObject {
