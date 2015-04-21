@@ -166,7 +166,7 @@ static NSString * sprintModelName = @"SprintModel";
 
 - (void)saveImageInPath:(NSString *) path {
     NSData *pngImage =  [self convertImage:self.imageStatus];
-    [pngImage writeToFile:path atomically:YES];
+    [pngImage writeToFile:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0] stringByAppendingPathComponent:path] atomically:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
