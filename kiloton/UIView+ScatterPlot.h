@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CorePlot-CocoaTouch.h"
+#import "CorePlot.h"
 #import "GraphWeightModel.h"
 @interface UIView (ScatterPlot)<CPTPlotDataSource>
 @property (nonatomic, strong) CPTGraphHostingView *hostView;

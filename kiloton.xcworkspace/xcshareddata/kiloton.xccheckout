@@ -5,13 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>073C8FE2-3281-433B-A818-A4516FCA7074</string>
+	<string>C7D1EF1D-409F-41EB-9ABC-426EB5FF53C6</string>
 	<key>IDESourceControlProjectName</key>
 	<string>kiloton</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>80661C2CC449148221B0E212C8A98B7575B7AB56</key>
-		<string>https://github.com/ariellyrycs/kiloton.git</string>
+		<string>github.com:ariellyrycs/kiloton.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>kiloton.xcworkspace</string>
@@ -21,7 +21,7 @@
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ariellyrycs/kiloton.git</string>
+	<string>github.com:ariellyrycs/kiloton.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
