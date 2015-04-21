@@ -30,7 +30,7 @@ static NSString * sprintModelName = @"SprintModel";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.profileStoryboard = [UIStoryboard storyboardWithName:@"UserProfile" bundle:nil];
+    self.profileStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self.context = self.managedObjectContext;
     self.UserWebservice = [UserWebserviceModel new];
 }

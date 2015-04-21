@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "UIView+ScatterPlot.h"
-#import "CorePlot-CocoaTouch.h"
+#import "CorePlot.h"
 #import <objc/runtime.h>
 #import "GraphWeightModel.h"
 

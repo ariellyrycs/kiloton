@@ -30,6 +30,7 @@
 		A68CDA6C1A9B927E00724D12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA6B1A9B927E00724D12 /* Images.xcassets */; };
 		A68CDA6F1A9B927E00724D12 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A68CDA6D1A9B927E00724D12 /* LaunchScreen.xib */; };
 		A68CDA7B1A9B927E00724D12 /* kilotonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A68CDA7A1A9B927E00724D12 /* kilotonTests.m */; };
+		A69926A01AE6D93700A5553D /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A699269F1AE6D93700A5553D /* FacebookSDK.framework */; };
 		E087A30A4C87ABC514C59518 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D133CF11182A05AE0F5B55BB /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -40,13 +41,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A68CDA571A9B927E00724D12;
 			remoteInfo = kiloton;
-		};
-		A6F96EB81AB3924200517760 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A68CDA501A9B927E00724D12 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A6F96E9B1AB3924200517760;
-			remoteInfo = "test-api-kiloton";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -94,8 +88,7 @@
 		A68CDA741A9B927E00724D12 /* kilotonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kilotonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A68CDA791A9B927E00724D12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A68CDA7A1A9B927E00724D12 /* kilotonTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kilotonTests.m; sourceTree = "<group>"; };
-		A6F96E9C1AB3924200517760 /* test-api-kiloton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "test-api-kiloton.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "test-api-kilotonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A699269F1AE6D93700A5553D /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		D133CF11182A05AE0F5B55BB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB63F5910721A1FB9DFF1C8A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,25 +98,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69926A01AE6D93700A5553D /* FacebookSDK.framework in Frameworks */,
 				E087A30A4C87ABC514C59518 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A68CDA711A9B927E00724D12 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6F96E991AB3924200517760 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6F96EB41AB3924200517760 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -136,6 +116,7 @@
 		20D92CF11F3515E2CF959984 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A699269F1AE6D93700A5553D /* FacebookSDK.framework */,
 				D133CF11182A05AE0F5B55BB /* libPods.a */,
 			);
 			name = Frameworks;
@@ -211,8 +192,6 @@
 			children = (
 				A68CDA581A9B927E00724D12 /* kiloton.app */,
 				A68CDA741A9B927E00724D12 /* kilotonTests.xctest */,
-				A6F96E9C1AB3924200517760 /* test-api-kiloton.app */,
-				A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -306,41 +285,6 @@
 			productReference = A68CDA741A9B927E00724D12 /* kilotonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A6F96E9B1AB3924200517760 /* test-api-kiloton */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A6F96EC31AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kiloton" */;
-			buildPhases = (
-				A6F96E981AB3924200517760 /* Sources */,
-				A6F96E991AB3924200517760 /* Frameworks */,
-				A6F96E9A1AB3924200517760 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "test-api-kiloton";
-			productName = "test-api-kiloton";
-			productReference = A6F96E9C1AB3924200517760 /* test-api-kiloton.app */;
-			productType = "com.apple.product-type.application";
-		};
-		A6F96EB61AB3924200517760 /* test-api-kilotonTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A6F96EC41AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kilotonTests" */;
-			buildPhases = (
-				A6F96EB31AB3924200517760 /* Sources */,
-				A6F96EB41AB3924200517760 /* Frameworks */,
-				A6F96EB51AB3924200517760 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A6F96EB91AB3924200517760 /* PBXTargetDependency */,
-			);
-			name = "test-api-kilotonTests";
-			productName = "test-api-kilotonTests";
-			productReference = A6F96EB71AB3924200517760 /* test-api-kilotonTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -356,13 +300,6 @@
 					A68CDA731A9B927E00724D12 = {
 						CreatedOnToolsVersion = 6.1;
 						TestTargetID = A68CDA571A9B927E00724D12;
-					};
-					A6F96E9B1AB3924200517760 = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
-					A6F96EB61AB3924200517760 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = A6F96E9B1AB3924200517760;
 					};
 				};
 			};
@@ -381,8 +318,6 @@
 			targets = (
 				A68CDA571A9B927E00724D12 /* kiloton */,
 				A68CDA731A9B927E00724D12 /* kilotonTests */,
-				A6F96E9B1AB3924200517760 /* test-api-kiloton */,
-				A6F96EB61AB3924200517760 /* test-api-kilotonTests */,
 			);
 		};
 /* End PBXProject section */
@@ -401,20 +336,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A68CDA721A9B927E00724D12 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6F96E9A1AB3924200517760 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6F96EB51AB3924200517760 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -489,20 +410,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A6F96E981AB3924200517760 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A6F96EB31AB3924200517760 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -510,11 +417,6 @@
 			isa = PBXTargetDependency;
 			target = A68CDA571A9B927E00724D12 /* kiloton */;
 			targetProxy = A68CDA751A9B927E00724D12 /* PBXContainerItemProxy */;
-		};
-		A6F96EB91AB3924200517760 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A6F96E9B1AB3924200517760 /* test-api-kiloton */;
-			targetProxy = A6F96EB81AB3924200517760 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -619,6 +521,10 @@
 			baseConfigurationReference = DB63F5910721A1FB9DFF1C8A /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/arobles/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = kiloton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -630,6 +536,10 @@
 			baseConfigurationReference = 41F698D9A20EEA210F43286C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/arobles/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = kiloton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -670,64 +580,6 @@
 			};
 			name = Release;
 		};
-		A6F96EBF1AB3924200517760 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "test-api-kiloton/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		A6F96EC01AB3924200517760 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "test-api-kiloton/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		A6F96EC11AB3924200517760 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "test-api-kilotonTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test-api-kiloton.app/test-api-kiloton";
-			};
-			name = Debug;
-		};
-		A6F96EC21AB3924200517760 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "test-api-kilotonTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/test-api-kiloton.app/test-api-kiloton";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -754,24 +606,6 @@
 			buildConfigurations = (
 				A68CDA821A9B927E00724D12 /* Debug */,
 				A68CDA831A9B927E00724D12 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A6F96EC31AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kiloton" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A6F96EBF1AB3924200517760 /* Debug */,
-				A6F96EC01AB3924200517760 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A6F96EC41AB3924200517760 /* Build configuration list for PBXNativeTarget "test-api-kilotonTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A6F96EC11AB3924200517760 /* Debug */,
-				A6F96EC21AB3924200517760 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
