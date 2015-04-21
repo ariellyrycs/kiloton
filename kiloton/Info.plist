@@ -30,9 +30,11 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>1087122914646598</string>
+	<string>1126960443996178</string>
 	<key>FacebookDisplayName</key>
 	<string>kiloton</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
